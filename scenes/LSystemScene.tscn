@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://d252nasa6yvvi"]
+
+[ext_resource type="Script" path="res://scripts/Line.gd" id="1_line"]
+
+[node name="LSystemScene" type="Node2D"]
+script = ExtResource("1_line")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="PanelContainer" parent="UI"]
+anchors_preset = -1
+anchor_right = 0.3
+anchor_bottom = 0.42
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 260.0
+offset_bottom = 320.0
+
+[node name="VBox" type="VBoxContainer" parent="UI/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PresetSelector" type="OptionButton" parent="UI/Panel/VBox"]
+layout_mode = 2
+
+[node name="IterLabel" type="Label" parent="UI/Panel/VBox"]
+layout_mode = 2
+text = "Итераций: 4"
+
+[node name="IterSlider" type="HSlider" parent="UI/Panel/VBox"]
+layout_mode = 2
+min_value = 1.0
+max_value = 7.0
+value = 4.0
+
+[node name="ZoomLabel" type="Label" parent="UI/Panel/VBox"]
+layout_mode = 2
+text = "Зум: 1.0"
+
+[node name="ZoomSlider" type="HSlider" parent="UI/Panel/VBox"]
+layout_mode = 2
+min_value = 0.1
+max_value = 5.0
+step = 0.1
+value = 1.0
+
+[node name="GenerateButton" type="Button" parent="UI/Panel/VBox"]
+layout_mode = 2
+text = "Сгенерировать"
+
+[node name="BackButton" type="Button" parent="UI/Panel/VBox"]
+layout_mode = 2
+text = "← Назад"
