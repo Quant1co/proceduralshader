@@ -17,4 +17,4 @@ config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/lsystem_editor/plugin.cfg")
+enabled=PackedStringArray("res://addons/lsystem_editor/plugin.cfg", "res://addons/procedural_baker/plugin.cfg")
