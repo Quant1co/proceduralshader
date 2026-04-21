@@ -1,0 +1,158 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/lsystem_editor/lsystem_dock.gd" id="1_dock"]
+
+[node name="LSystem" type="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_dock")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="TitleLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "L-System Editor"
+horizontal_alignment = 1
+
+[node name="PresetSelector" type="OptionButton" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="HSep1" type="HSeparator" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="AxiomLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Аксиома:"
+
+[node name="AxiomEdit" type="LineEdit" parent="ScrollContainer/VBox"]
+layout_mode = 2
+placeholder_text = "Например: F или F-G-G"
+
+[node name="RulesLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Правила подстановки:"
+
+[node name="RulesContainer" type="VBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="AddRuleButton" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "+ Добавить правило"
+
+[node name="HSep2" type="HSeparator" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="AngleLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Угол: 90°"
+
+[node name="AngleSlider" type="HSlider" parent="ScrollContainer/VBox"]
+layout_mode = 2
+min_value = 1.0
+max_value = 180.0
+step = 1.0
+value = 90.0
+
+[node name="StepLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Длина шага: 5.0"
+
+[node name="StepSlider" type="HSlider" parent="ScrollContainer/VBox"]
+layout_mode = 2
+min_value = 1.0
+max_value = 50.0
+step = 0.5
+value = 5.0
+
+[node name="IterLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Итераций: 4"
+
+[node name="IterSlider" type="HSlider" parent="ScrollContainer/VBox"]
+layout_mode = 2
+min_value = 1.0
+max_value = 10.0
+value = 4.0
+
+[node name="ZoomLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Зум: 1.0"
+
+[node name="ZoomSlider" type="HSlider" parent="ScrollContainer/VBox"]
+layout_mode = 2
+min_value = 0.1
+max_value = 5.0
+step = 0.1
+value = 1.0
+
+[node name="HSep3" type="HSeparator" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="PreviewLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Превью:"
+
+[node name="PreviewContainer" type="SubViewportContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 300)
+stretch = true
+
+[node name="PreviewViewport" type="SubViewport" parent="ScrollContainer/VBox/PreviewContainer"]
+size = Vector2i(512, 512)
+render_target_update_mode = 4
+transparent_bg = false
+
+[node name="Background" type="ColorRect" parent="ScrollContainer/VBox/PreviewContainer/PreviewViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="DrawNode" type="Node2D" parent="ScrollContainer/VBox/PreviewContainer/PreviewViewport"]
+
+[node name="HSep4" type="HSeparator" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="GenerateButton" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Сгенерировать"
+
+[node name="ExportButton" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Экспортировать PNG"
+
+[node name="ExportPathButton" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Папка экспорта: по умолчанию"
+
+[node name="OpenExportFolderButton" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Открыть папку экспорта"
+
+[node name="HSep5" type="HSeparator" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="SavePresetButton" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Сохранить пресет"
+
+[node name="DeletePresetButton" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Удалить пресет"
+
+[node name="StatusLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = ""

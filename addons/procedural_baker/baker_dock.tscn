@@ -1,0 +1,123 @@
+[gd_scene load_steps=2 format=3 uid="uid://bakerdock002"]
+
+[ext_resource type="Script" path="res://addons/procedural_baker/baker_dock.gd" id="1_dock"]
+
+[node name="Baker" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dock")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="MainVBox" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="TitleLabel" type="Label" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+text = "Procedural Baker"
+horizontal_alignment = 1
+
+[node name="HSep1" type="HSeparator" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+
+[node name="SelectorHBox" type="HBoxContainer" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+
+[node name="ShaderSelector" type="OptionButton" parent="ScrollContainer/MainVBox/SelectorHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RefreshButton" type="Button" parent="ScrollContainer/MainVBox/SelectorHBox"]
+layout_mode = 2
+text = "🔄"
+
+[node name="LoadShaderButton" type="Button" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+text = "Загрузить шейдер..."
+
+[node name="HSep2" type="HSeparator" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+
+[node name="ParamsContainer" type="VBoxContainer" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+
+[node name="HSep3" type="HSeparator" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+
+[node name="PreviewLabel" type="Label" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+text = "Превью"
+horizontal_alignment = 1
+
+[node name="PreviewContainer" type="SubViewportContainer" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 300)
+size_flags_horizontal = 3
+stretch = true
+
+[node name="PreviewViewport" type="SubViewport" parent="ScrollContainer/MainVBox/PreviewContainer"]
+size = Vector2i(300, 300)
+render_target_update_mode = 4
+transparent_bg = false
+
+[node name="PreviewRect" type="ColorRect" parent="ScrollContainer/MainVBox/PreviewContainer/PreviewViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSep4" type="HSeparator" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+
+[node name="ResHBox" type="HBoxContainer" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+
+[node name="ResLabel" type="Label" parent="ScrollContainer/MainVBox/ResHBox"]
+layout_mode = 2
+text = "Разрешение:"
+
+[node name="ResolutionSelector" type="OptionButton" parent="ScrollContainer/MainVBox/ResHBox"]
+layout_mode = 2
+
+[node name="BakeButton" type="Button" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+text = "Запечь текстуру"
+
+[node name="ExportPathButton" type="Button" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+text = "Папка экспорта: по умолчанию"
+
+[node name="OpenFolderButton" type="Button" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+text = "Открыть папку экспорта"
+
+[node name="HSep5" type="HSeparator" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+
+[node name="UnityPathButton" type="Button" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+text = "Выбрать папку Unity"
+
+[node name="CopyToUnityButton" type="Button" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+text = "Копировать в Unity"
+
+[node name="StatusLabel" type="Label" parent="ScrollContainer/MainVBox"]
+layout_mode = 2
+text = "Выберите шейдер"
+horizontal_alignment = 1

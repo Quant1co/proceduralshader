@@ -1,0 +1,15 @@
+{
+	"exported_at": "2026-04-19T16:27:44",
+	"params": {
+		"angle": 120,
+		"axiom": "F-G-G",
+		"iterations": 5,
+		"rules": {
+			"F": "F-G+F+G-F",
+			"G": "GG"
+		},
+		"step": 8
+	},
+	"type": "lsystem",
+	"version": "1.0"
+}

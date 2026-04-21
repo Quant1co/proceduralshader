@@ -10,44 +10,126 @@ script = ExtResource("1_line")
 [node name="Panel" type="PanelContainer" parent="UI"]
 anchors_preset = -1
 anchor_right = 0.3
-anchor_bottom = 0.42
+anchor_bottom = 0.95
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 260.0
-offset_bottom = 320.0
+offset_right = 300.0
+offset_bottom = 700.0
 
-[node name="VBox" type="VBoxContainer" parent="UI/Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Panel"]
 layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="UI/Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
-[node name="PresetSelector" type="OptionButton" parent="UI/Panel/VBox"]
+[node name="TitleLabel" type="Label" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+text = "L-системы"
+horizontal_alignment = 1
+
+[node name="PresetSelector" type="OptionButton" parent="UI/Panel/ScrollContainer/VBox"]
 layout_mode = 2
 
-[node name="IterLabel" type="Label" parent="UI/Panel/VBox"]
+[node name="HSep1" type="HSeparator" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="AxiomLabel" type="Label" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+text = "Аксиома:"
+
+[node name="AxiomEdit" type="LineEdit" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+placeholder_text = "Например: F или F-G-G"
+
+[node name="RulesLabel" type="Label" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+text = "Правила подстановки:"
+
+[node name="RulesContainer" type="VBoxContainer" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="AddRuleButton" type="Button" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+text = "+ Добавить правило"
+
+[node name="HSep2" type="HSeparator" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="AngleLabel" type="Label" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+text = "Угол: 90°"
+
+[node name="AngleSlider" type="HSlider" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+min_value = 1.0
+max_value = 180.0
+value = 90.0
+
+[node name="StepLabel" type="Label" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+text = "Длина шага: 5.0"
+
+[node name="StepSlider" type="HSlider" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+min_value = 1.0
+max_value = 50.0
+step = 0.5
+value = 5.0
+
+[node name="IterLabel" type="Label" parent="UI/Panel/ScrollContainer/VBox"]
 layout_mode = 2
 text = "Итераций: 4"
 
-[node name="IterSlider" type="HSlider" parent="UI/Panel/VBox"]
+[node name="IterSlider" type="HSlider" parent="UI/Panel/ScrollContainer/VBox"]
 layout_mode = 2
 min_value = 1.0
-max_value = 7.0
+max_value = 10.0
 value = 4.0
 
-[node name="ZoomLabel" type="Label" parent="UI/Panel/VBox"]
+[node name="ZoomLabel" type="Label" parent="UI/Panel/ScrollContainer/VBox"]
 layout_mode = 2
 text = "Зум: 1.0"
 
-[node name="ZoomSlider" type="HSlider" parent="UI/Panel/VBox"]
+[node name="ZoomSlider" type="HSlider" parent="UI/Panel/ScrollContainer/VBox"]
 layout_mode = 2
 min_value = 0.1
 max_value = 5.0
 step = 0.1
 value = 1.0
 
-[node name="GenerateButton" type="Button" parent="UI/Panel/VBox"]
+[node name="HSep3" type="HSeparator" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="GenerateButton" type="Button" parent="UI/Panel/ScrollContainer/VBox"]
 layout_mode = 2
 text = "Сгенерировать"
 
-[node name="BackButton" type="Button" parent="UI/Panel/VBox"]
+[node name="ExportButton" type="Button" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+text = "Экспортировать PNG"
+
+[node name="OpenExportFolderButton" type="Button" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+text = "Открыть папку экспорта"
+
+[node name="HSep4" type="HSeparator" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="SavePresetButton" type="Button" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+text = "Сохранить пресет"
+
+[node name="DeletePresetButton" type="Button" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+text = "Удалить пресет"
+
+[node name="HSep5" type="HSeparator" parent="UI/Panel/ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="UI/Panel/ScrollContainer/VBox"]
 layout_mode = 2
 text = "← Назад"

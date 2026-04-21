@@ -1,7 +1,0 @@
-res://scenes/BakerScene.tscn
-res://shaders/cloud_shader.gdshader
-res://shaders/stone_shader.gdshader
-res://scenes/AutomatScene.tscn
-res://scenes/WaterScene.tscn
-res://scenes/LSystemScene.tscn
-res://shaders/asphalt_shader.gdshader

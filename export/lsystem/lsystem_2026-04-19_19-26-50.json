@@ -1,0 +1,15 @@
+{
+	"exported_at": "2026-04-19T19:26:50",
+	"params": {
+		"angle": 25,
+		"axiom": "X",
+		"iterations": 3,
+		"rules": {
+			"F": "FF",
+			"X": "F+[[X]-X]-F[-FX]+X"
+		},
+		"step": 8
+	},
+	"type": "lsystem",
+	"version": "1.0"
+}
