@@ -98,6 +98,59 @@ max_value = 5.0
 step = 0.1
 value = 1.0
 
+[node name="HSepColor" type="HSeparator" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="ColorModeLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Режим окраски:"
+
+[node name="ColorModeSelector" type="OptionButton" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="SingleColorRow" type="HBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="SingleColorLabel" type="Label" parent="ScrollContainer/VBox/SingleColorRow"]
+layout_mode = 2
+text = "Цвет:"
+custom_minimum_size = Vector2(80, 0)
+
+[node name="SingleColorPicker" type="ColorPickerButton" parent="ScrollContainer/VBox/SingleColorRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(60, 30)
+color = Color(0.2, 0.9, 0.3, 1)
+
+[node name="SymbolColorsContainer" type="VBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="DepthStartRow" type="HBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="DepthStartLabel" type="Label" parent="ScrollContainer/VBox/DepthStartRow"]
+layout_mode = 2
+text = "Начало:"
+custom_minimum_size = Vector2(80, 0)
+
+[node name="DepthStartPicker" type="ColorPickerButton" parent="ScrollContainer/VBox/DepthStartRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(60, 30)
+color = Color(0.55, 0.27, 0.07, 1)
+
+[node name="DepthEndRow" type="HBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="DepthEndLabel" type="Label" parent="ScrollContainer/VBox/DepthEndRow"]
+layout_mode = 2
+text = "Конец:"
+custom_minimum_size = Vector2(80, 0)
+
+[node name="DepthEndPicker" type="ColorPickerButton" parent="ScrollContainer/VBox/DepthEndRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(60, 30)
+color = Color(0.2, 0.9, 0.3, 1)
+
 [node name="HSep3" type="HSeparator" parent="ScrollContainer/VBox"]
 layout_mode = 2
 
