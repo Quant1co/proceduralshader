@@ -1,0 +1,35 @@
+{
+	"colors": {
+		"end": "#33e64d",
+		"mode": "gradient",
+		"start": "#8c4512"
+	},
+	"exported_at": "2026-05-13T07:07:54",
+	"params": {
+		"angle": 25,
+		"axiom": "X",
+		"iterations": 5,
+		"rules": {
+			"F": [
+				{
+					"replacement": "FF",
+					"weight": 1
+				},
+				{
+					"replacement": "F+F-F",
+					"weight": 0.2
+				}
+			],
+			"X": [
+				{
+					"replacement": "F+[[X]-X]-F[-FX]+X",
+					"weight": 1
+				}
+			]
+		},
+		"step": 5
+	},
+	"seed": 946685627,
+	"type": "lsystem",
+	"version": "2.0"
+}

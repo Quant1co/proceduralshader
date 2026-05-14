@@ -50,6 +50,7 @@ const SETTINGS_PATH: String = "user://lsystem_settings.cfg"
 # ===========================================================================
 const MAX_LSTRING_LENGTH: int = 500_000
 const DRAWING_SYMBOLS: Array[String] = ["F", "G"]
+const NODE_MERGE_THRESHOLD: float = 0.5
 
 const DEFAULT_SYMBOL_COLORS: Dictionary = {
 	"F": Color(0.2, 0.9, 0.3),
@@ -108,6 +109,9 @@ var symbol_color_rows: Array = []
 @onready var draw_node:                Node2D               = $ScrollContainer/VBox/PreviewContainer/PreviewViewport/DrawNode
 @onready var generate_btn:             Button               = $ScrollContainer/VBox/GenerateButton
 @onready var export_button:            Button               = $ScrollContainer/VBox/ExportButton
+@onready var export_path2d_button:     Button               = $ScrollContainer/VBox/ExportPath2DButton
+@onready var export_path3d_button:     Button               = $ScrollContainer/VBox/ExportPath3DButton
+@onready var export_graph_button:      Button               = $ScrollContainer/VBox/ExportGraphButton
 @onready var export_path_button:       Button               = $ScrollContainer/VBox/ExportPathButton
 @onready var open_export_folder_btn:   Button               = $ScrollContainer/VBox/OpenExportFolderButton
 @onready var save_preset_button:       Button               = $ScrollContainer/VBox/SavePresetButton
@@ -150,6 +154,9 @@ func _ready() -> void:
 	save_preset_button.pressed.connect(_on_save_preset_pressed)
 	delete_preset_button.pressed.connect(_on_delete_preset_pressed)
 	export_button.pressed.connect(_on_export_pressed)
+	export_path2d_button.pressed.connect(_on_export_path2d_pressed)
+	export_path3d_button.pressed.connect(_on_export_path3d_pressed)
+	export_graph_button.pressed.connect(_on_export_graph_pressed)
 	export_path_button.pressed.connect(_pick_export_path)
 	open_export_folder_btn.pressed.connect(_on_open_export_folder)
 
@@ -304,6 +311,12 @@ func _get_export_dir_absolute() -> String:
 	if not abs_path.ends_with("/") and not abs_path.ends_with("\\"):
 		abs_path += "/"
 	return abs_path
+
+func _to_resource_save_path(path: String) -> String:
+	var localized := ProjectSettings.localize_path(path)
+	if localized.begins_with("res://") or localized.begins_with("user://"):
+		return localized
+	return path
 
 func _pick_export_path() -> void:
 	var dialog := EditorFileDialog.new()
@@ -627,7 +640,7 @@ func _apply_rules_with_depth(axiom: String, rules: Dictionary, iterations: int) 
 	return result
 
 # ===========================================================================
-#  Интерпретация
+#  Интерпретация (для превью, с масштабированием)
 # ===========================================================================
 func _interpret_colored(char_data: Array, angle_deg: float, step: float, target_size: int) -> void:
 	segments.clear()
@@ -706,7 +719,387 @@ func _fit_segments_to_size(target_size: int) -> void:
 		seg["to"]   = seg["to"]   * scale_factor + center_offset
 
 # ===========================================================================
-#  Экспорт
+#  Черепашья интерпретация (сырые координаты, без масштабирования)
+# ===========================================================================
+func _interpret_raw(char_data: Array, angle_deg: float, step: float) -> Array:
+	var raw_segments: Array = []
+	var pos: Vector2 = Vector2.ZERO
+	var angle: float = -90.0
+	var stack: Array = []
+
+	for item in char_data:
+		var ch: String = item["char"]
+		var depth: int = item["depth"]
+
+		match ch:
+			"F", "G":
+				var new_pos: Vector2 = pos + Vector2(
+					cos(deg_to_rad(angle)) * step,
+					sin(deg_to_rad(angle)) * step
+				)
+				raw_segments.append({
+					"from": pos,
+					"to": new_pos,
+					"symbol": ch,
+					"depth": depth
+				})
+				pos = new_pos
+			"+":
+				angle += angle_deg
+			"-":
+				angle -= angle_deg
+			"[":
+				stack.push_back({"pos": pos, "angle": angle})
+			"]":
+				if stack.size() > 0:
+					var state: Dictionary = stack.pop_back()
+					pos = state["pos"]
+					angle = state["angle"]
+
+	return raw_segments
+
+# ===========================================================================
+#  Извлечение веток (непрерывных полилиний)
+# ===========================================================================
+func _extract_branches(char_data: Array, angle_deg: float, step: float) -> Array:
+	var branches: Array = []
+	var current_branch: Array = []
+	var pos: Vector2 = Vector2.ZERO
+	var angle: float = -90.0
+	var stack: Array = []
+
+	for item in char_data:
+		var ch: String = item["char"]
+
+		match ch:
+			"F", "G":
+				if current_branch.is_empty():
+					current_branch.append(pos)
+				var new_pos: Vector2 = pos + Vector2(
+					cos(deg_to_rad(angle)) * step,
+					sin(deg_to_rad(angle)) * step
+				)
+				current_branch.append(new_pos)
+				pos = new_pos
+			"+":
+				angle += angle_deg
+			"-":
+				angle -= angle_deg
+			"[":
+				if current_branch.size() >= 2:
+					branches.append(current_branch.duplicate())
+				current_branch.clear()
+				stack.push_back({"pos": pos, "angle": angle})
+			"]":
+				if current_branch.size() >= 2:
+					branches.append(current_branch.duplicate())
+				current_branch.clear()
+				if stack.size() > 0:
+					var state: Dictionary = stack.pop_back()
+					pos = state["pos"]
+					angle = state["angle"]
+
+	if current_branch.size() >= 2:
+		branches.append(current_branch)
+
+	return branches
+
+# ===========================================================================
+#  Экспорт Path2D (.tscn) — через PackedScene
+# ===========================================================================
+func _on_export_path2d_pressed() -> void:
+	if _cached_char_data.is_empty():
+		_set_status("Нечего экспортировать — сначала сгенерируйте")
+		return
+
+	var abs_export_dir: String = _get_export_dir_absolute()
+	DirAccess.make_dir_recursive_absolute(abs_export_dir)
+
+	var branches: Array = _extract_branches(
+		_cached_char_data, angle_slider.value, step_slider.value
+	)
+
+	if branches.is_empty():
+		_set_status("Нет веток для экспорта")
+		return
+
+	var root := Node2D.new()
+	root.name = "LSystemPaths"
+
+	for i in range(branches.size()):
+		var branch: Array = branches[i]
+		if branch.size() < 2:
+			continue
+
+		var path_node := Path2D.new()
+		path_node.name = "Branch_%d" % i
+
+		var curve := Curve2D.new()
+		for point in branch:
+			curve.add_point(point)
+
+		path_node.curve = curve
+		root.add_child(path_node)
+		path_node.owner = root
+
+	var packed := PackedScene.new()
+	var pack_err := packed.pack(root)
+	if pack_err != OK:
+		root.free()
+		_set_status("Ошибка упаковки Path2D сцены")
+		push_error("[LSystem] PackedScene.pack(Path2D) error: " + str(pack_err))
+		return
+
+	var timestamp: String = Time.get_datetime_string_from_system().replace(":", "-").replace("T", "_")
+	var file_name: String = "lsystem_path2d_" + timestamp + ".tscn"
+	var abs_file_path: String = abs_export_dir + file_name
+	var save_path: String = _to_resource_save_path(abs_file_path)
+
+	var save_err := ResourceSaver.save(packed, save_path)
+	root.free()
+
+	if save_err != OK:
+		_set_status("Ошибка сохранения Path2D")
+		push_error("[LSystem] ResourceSaver.save(Path2D) error: " + str(save_err))
+		return
+
+	if save_path.begins_with("res://"):
+		EditorInterface.get_resource_filesystem().scan()
+
+	_set_status("Path2D экспортирован: " + file_name)
+	print("[LSystem] Path2D экспортирован: " + abs_file_path)
+
+# ===========================================================================
+#  Экспорт Path3D (.tscn) — через PackedScene
+# ===========================================================================
+func _on_export_path3d_pressed() -> void:
+	if _cached_char_data.is_empty():
+		_set_status("Нечего экспортировать — сначала сгенерируйте")
+		return
+
+	var abs_export_dir: String = _get_export_dir_absolute()
+	DirAccess.make_dir_recursive_absolute(abs_export_dir)
+
+	var branches: Array = _extract_branches(
+		_cached_char_data, angle_slider.value, step_slider.value
+	)
+
+	if branches.is_empty():
+		_set_status("Нет веток для экспорта")
+		return
+
+	# --- Вычисляем bounding box для нормализации масштаба ---
+	var all_min := Vector2.INF
+	var all_max := -Vector2.INF
+	for branch in branches:
+		for point in branch:
+			var p: Vector2 = point
+			all_min.x = min(all_min.x, p.x)
+			all_min.y = min(all_min.y, p.y)
+			all_max.x = max(all_max.x, p.x)
+			all_max.y = max(all_max.y, p.y)
+
+	var bounds_size := all_max - all_min
+	var max_extent: float = max(bounds_size.x, bounds_size.y)
+	if max_extent < 0.001:
+		max_extent = 1.0
+
+	# Нормализуем так чтобы вся модель вписывалась в 10 единиц
+	var norm_scale: float = 10.0 / max_extent
+	var center_2d := (all_min + all_max) / 2.0
+
+	var root := Node3D.new()
+	root.name = "LSystemPaths3D"
+
+	for i in range(branches.size()):
+		var branch: Array = branches[i]
+		if branch.size() < 2:
+			continue
+
+		# Фильтруем дублирующиеся точки
+		var filtered: Array[Vector3] = []
+		for point in branch:
+			var p: Vector2 = point
+			var p3 := Vector3(
+				(p.x - center_2d.x) * norm_scale,
+				-(p.y - center_2d.y) * norm_scale,
+				0.0
+			)
+			if filtered.is_empty() or filtered[-1].distance_to(p3) > 0.001:
+				filtered.append(p3)
+
+		if filtered.size() < 2:
+			continue
+
+		var path_node := Path3D.new()
+		path_node.name = "Branch_%d" % i
+
+		var curve := Curve3D.new()
+		for p3 in filtered:
+			curve.add_point(p3)
+
+		path_node.curve = curve
+		root.add_child(path_node)
+		path_node.owner = root
+
+	var packed := PackedScene.new()
+	var pack_err := packed.pack(root)
+	if pack_err != OK:
+		root.free()
+		_set_status("Ошибка упаковки Path3D сцены")
+		push_error("[LSystem] PackedScene.pack(Path3D) error: " + str(pack_err))
+		return
+
+	var timestamp: String = Time.get_datetime_string_from_system().replace(":", "-").replace("T", "_")
+	var file_name: String = "lsystem_path3d_" + timestamp + ".tscn"
+	var abs_file_path: String = abs_export_dir + file_name
+	var save_path: String = _to_resource_save_path(abs_file_path)
+
+	var save_err := ResourceSaver.save(packed, save_path)
+	root.free()
+
+	if save_err != OK:
+		_set_status("Ошибка сохранения Path3D")
+		push_error("[LSystem] ResourceSaver.save(Path3D) error: " + str(save_err))
+		return
+
+	if save_path.begins_with("res://"):
+		EditorInterface.get_resource_filesystem().scan()
+
+	_set_status("Path3D экспортирован: " + file_name)
+	print("[LSystem] Path3D экспортирован: " + abs_file_path)
+
+# ===========================================================================
+#  Экспорт графа (JSON)
+# ===========================================================================
+func _on_export_graph_pressed() -> void:
+	if _cached_char_data.is_empty():
+		_set_status("Нечего экспортировать — сначала сгенерируйте")
+		return
+
+	var abs_export_dir: String = _get_export_dir_absolute()
+	DirAccess.make_dir_recursive_absolute(abs_export_dir)
+
+	var raw_segments: Array = _interpret_raw(
+		_cached_char_data, angle_slider.value, step_slider.value
+	)
+
+	if raw_segments.is_empty():
+		_set_status("Нет сегментов для графа")
+		return
+
+	var graph: Dictionary = _build_graph(raw_segments)
+
+	var timestamp: String = Time.get_datetime_string_from_system().replace(":", "-").replace("T", "_")
+	var base_name: String = "lsystem_graph_" + timestamp
+
+	var json_path: String = abs_export_dir + base_name + ".json"
+	var json_data: Dictionary = _graph_to_json(graph)
+	var file := FileAccess.open(json_path, FileAccess.WRITE)
+	if file == null:
+		_set_status("Ошибка записи JSON")
+		return
+	file.store_string(JSON.stringify(json_data, "\t"))
+	file.close()
+
+	_set_status("Граф экспортирован: " + base_name + ".json")
+	print("[LSystem] Граф экспортирован: " + json_path)
+
+func _build_graph(raw_segments: Array) -> Dictionary:
+	var nodes: Array = []
+	var node_ids: Dictionary = {}
+	var edges: Array = []
+	var adjacency: Dictionary = {}
+
+	for seg in raw_segments:
+		var from_id: int = _get_or_create_node(seg["from"], nodes, node_ids)
+		var to_id: int = _get_or_create_node(seg["to"], nodes, node_ids)
+
+		edges.append({
+			"from": from_id,
+			"to": to_id,
+			"symbol": seg["symbol"],
+			"depth": seg["depth"]
+		})
+
+		if not adjacency.has(from_id):
+			adjacency[from_id] = []
+		if to_id not in adjacency[from_id]:
+			adjacency[from_id].append(to_id)
+
+		if not adjacency.has(to_id):
+			adjacency[to_id] = []
+		if from_id not in adjacency[to_id]:
+			adjacency[to_id].append(from_id)
+
+	return {
+		"nodes": nodes,
+		"edges": edges,
+		"adjacency": adjacency
+	}
+
+func _get_or_create_node(pos: Vector2, nodes: Array, node_ids: Dictionary) -> int:
+	var key: String = _vec2_key(pos)
+
+	if node_ids.has(key):
+		return node_ids[key]
+
+	for i in range(nodes.size()):
+		if (nodes[i] as Vector2).distance_to(pos) < NODE_MERGE_THRESHOLD:
+			node_ids[key] = i
+			return i
+
+	var new_id: int = nodes.size()
+	nodes.append(pos)
+	node_ids[key] = new_id
+	return new_id
+
+func _vec2_key(v: Vector2) -> String:
+	return "%.2f,%.2f" % [v.x, v.y]
+
+func _graph_to_json(graph: Dictionary) -> Dictionary:
+	var json_nodes: Array = []
+	for i in range(graph["nodes"].size()):
+		var v: Vector2 = graph["nodes"][i]
+		json_nodes.append({
+			"id": i,
+			"x": snappedf(v.x, 0.01),
+			"y": snappedf(v.y, 0.01)
+		})
+
+	var json_edges: Array = []
+	for e in graph["edges"]:
+		json_edges.append({
+			"from": e["from"],
+			"to": e["to"],
+			"symbol": e["symbol"],
+			"depth": e["depth"]
+		})
+
+	var json_adjacency: Dictionary = {}
+	for key in graph["adjacency"]:
+		json_adjacency[str(key)] = graph["adjacency"][key]
+
+	return {
+		"version": "1.0",
+		"type": "lsystem_graph",
+		"exported_at": Time.get_datetime_string_from_system(),
+		"seed": _current_seed,
+		"params": {
+			"axiom": axiom_edit.text.strip_edges(),
+			"angle": angle_slider.value,
+			"step": step_slider.value,
+			"iterations": int(iter_slider.value)
+		},
+		"node_count": graph["nodes"].size(),
+		"edge_count": graph["edges"].size(),
+		"nodes": json_nodes,
+		"edges": json_edges,
+		"adjacency": json_adjacency
+	}
+
+# ===========================================================================
+#  Экспорт PNG
 # ===========================================================================
 func _on_export_pressed() -> void:
 	if segments.is_empty():

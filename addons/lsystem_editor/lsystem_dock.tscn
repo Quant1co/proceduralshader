@@ -183,9 +183,25 @@ layout_mode = 2
 layout_mode = 2
 text = "Сгенерировать"
 
+[node name="ExportLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Экспорт:"
+
 [node name="ExportButton" type="Button" parent="ScrollContainer/VBox"]
 layout_mode = 2
 text = "Экспортировать PNG"
+
+[node name="ExportPath2DButton" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Экспорт Path2D (.tscn)"
+
+[node name="ExportPath3DButton" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Экспорт Path3D (.tscn)"
+
+[node name="ExportGraphButton" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Экспорт граф (.json)"
 
 [node name="ExportPathButton" type="Button" parent="ScrollContainer/VBox"]
 layout_mode = 2
