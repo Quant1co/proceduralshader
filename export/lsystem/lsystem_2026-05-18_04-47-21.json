@@ -1,0 +1,34 @@
+{
+	"colors": {
+		"branch": "#9544fd",
+		"branch_width": 5,
+		"mode": "by_iteration",
+		"tip": "#ab84ff",
+		"tip_width": 10,
+		"trunk": "#472b96",
+		"trunk_depth": 1,
+		"trunk_width": 8
+	},
+	"exported_at": "2026-05-18T04:47:21",
+	"params": {
+		"angle": 25,
+		"axiom": "F",
+		"iterations": 3,
+		"rules": {
+			"F": [
+				{
+					"replacement": "F[+F]F[-F]F",
+					"weight": 1
+				},
+				{
+					"replacement": "FF",
+					"weight": 1
+				}
+			]
+		},
+		"step": 5
+	},
+	"seed": 3123374553,
+	"type": "lsystem",
+	"version": "2.8"
+}

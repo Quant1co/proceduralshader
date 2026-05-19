@@ -1,0 +1,24 @@
+{
+	"colors": {
+		"color": "#33e64d",
+		"mode": "single"
+	},
+	"exported_at": "2026-05-19T01:37:18",
+	"params": {
+		"angle": 30,
+		"axiom": "A",
+		"iterations": 10,
+		"rules": {
+			"A": [
+				{
+					"replacement": "F [+A][-A]",
+					"weight": 1
+				}
+			]
+		},
+		"step": 15.5
+	},
+	"seed": 652443030,
+	"type": "lsystem",
+	"version": "2.8"
+}

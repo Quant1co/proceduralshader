@@ -1,0 +1,27 @@
+{
+	"colors": {
+		"colors": {
+			"F": "#33e64d",
+			"G": "#4d80e6"
+		},
+		"mode": "by_symbol"
+	},
+	"exported_at": "2026-05-19T02:27:55",
+	"params": {
+		"angle": 90,
+		"axiom": "F",
+		"iterations": 6,
+		"rules": {
+			"F": [
+				{
+					"replacement": "F+F-F-F+F",
+					"weight": 1
+				}
+			]
+		},
+		"step": 5
+	},
+	"seed": 2378929957,
+	"type": "lsystem",
+	"version": "2.9"
+}
