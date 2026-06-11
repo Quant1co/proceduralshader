@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://27u7lgvh6lld"]
+
+[ext_resource type="Script" path="res://demo/particles/particle_demo.gd" id="1_script"]
+
+[node name="ParticleDemo" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Background" type="ColorRect" parent="."]
+z_index = -10
+offset_left = -2000.0
+offset_top = -2000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
+color = Color(0.05, 0.05, 0.1, 1)
+
+[node name="EffectsRoot" type="Node2D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="VBox" type="VBoxContainer" parent="UI"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 280.0
+offset_bottom = 300.0
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="UI/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "L-System Particle Effects"
+
+[node name="HSep1" type="HSeparator" parent="UI/VBox"]
+layout_mode = 2
+
+[node name="EffectLabel" type="Label" parent="UI/VBox"]
+layout_mode = 2
+text = "Выберите эффект:"
+
+[node name="EffectSelector" type="OptionButton" parent="UI/VBox"]
+layout_mode = 2
+
+[node name="SpawnButton" type="Button" parent="UI/VBox"]
+layout_mode = 2
+text = "Создать эффект"
+
+[node name="ClearButton" type="Button" parent="UI/VBox"]
+layout_mode = 2
+text = "Очистить всё"
+
+[node name="HSep2" type="HSeparator" parent="UI/VBox"]
+layout_mode = 2
+
+[node name="InfoLabel" type="Label" parent="UI/VBox"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+text = "Выберите эффект и нажмите 'Создать'"
+autowrap_mode = 2
+
+[node name="HintLabel" type="Label" parent="UI/VBox"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+autowrap_mode = 2
+
+[node name="HSep3" type="HSeparator" parent="UI/VBox"]
+layout_mode = 2
+
+[node name="ControlsLabel" type="Label" parent="UI/VBox"]
+layout_mode = 2
+text = "Колёсико — зум
+СКМ — перемещение"

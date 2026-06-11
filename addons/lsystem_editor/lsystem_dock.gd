@@ -140,12 +140,10 @@ var iter_tip_width: float = 1.0
 @onready var preview_viewport:         SubViewport          = $ScrollContainer/VBox/PreviewContainer/PreviewViewport
 @onready var draw_node:                Node2D               = $ScrollContainer/VBox/PreviewContainer/PreviewViewport/DrawNode
 @onready var generate_btn:             Button               = $ScrollContainer/VBox/GenerateButton
-@onready var export_button:            Button               = $ScrollContainer/VBox/ExportButton
+@onready var export_format_selector:   OptionButton         = $ScrollContainer/VBox/ExportFormatSelector
 @onready var transparent_bg_check:     CheckBox             = $ScrollContainer/VBox/TransparentBgCheck
-@onready var export_path2d_button:     Button               = $ScrollContainer/VBox/ExportPath2DButton
-@onready var export_path3d_button:     Button               = $ScrollContainer/VBox/ExportPath3DButton
-@onready var export_graph_button:      Button               = $ScrollContainer/VBox/ExportGraphButton
-@onready var export_graph_res_button:  Button               = $ScrollContainer/VBox/ExportGraphResButton
+@onready var straighten_trunk_check:   CheckBox             = $ScrollContainer/VBox/StraightenTrunkCheck
+@onready var export_button:            Button               = $ScrollContainer/VBox/ExportButton
 @onready var export_path_button:       Button               = $ScrollContainer/VBox/ExportPathButton
 @onready var open_export_folder_btn:   Button               = $ScrollContainer/VBox/OpenExportFolderButton
 @onready var save_preset_button:       Button               = $ScrollContainer/VBox/SavePresetButton
@@ -199,11 +197,17 @@ func _ready() -> void:
 	add_rule_button.pressed.connect(func(): _add_rule_row())
 	save_preset_button.pressed.connect(_on_save_preset_pressed)
 	delete_preset_button.pressed.connect(_on_delete_preset_pressed)
-	export_button.pressed.connect(_on_export_pressed)
-	export_path2d_button.pressed.connect(_on_export_path2d_pressed)
-	export_path3d_button.pressed.connect(_on_export_path3d_pressed)
-	export_graph_button.pressed.connect(_on_export_graph_pressed)
-	export_graph_res_button.pressed.connect(_on_export_graph_res_pressed)
+
+	# --- Экспорт ---
+	export_format_selector.add_item("PNG изображение")
+	export_format_selector.add_item("Path2D (.tscn)")
+	export_format_selector.add_item("Path3D (.tscn)")
+	export_format_selector.add_item("Граф (.json)")
+	export_format_selector.add_item("Граф (.tres)")
+	export_format_selector.item_selected.connect(_on_export_format_changed)
+	export_button.pressed.connect(_on_export_pressed_unified)
+	_on_export_format_changed(0)
+
 	export_path_button.pressed.connect(_pick_export_path)
 	open_export_folder_btn.pressed.connect(_on_open_export_folder)
 
@@ -216,29 +220,23 @@ func _ready() -> void:
 		_refresh_preview()
 	)
 
-	# --- Панорамирование кнопками ---
 	var pan_step_fn := func():
 		return max(20.0, 50.0 / user_scale)
 
 	pan_left_btn.pressed.connect(func():
-		pan_offset.x += pan_step_fn.call()
-		_refresh_preview()
+		pan_offset.x += pan_step_fn.call(); _refresh_preview()
 	)
 	pan_right_btn.pressed.connect(func():
-		pan_offset.x -= pan_step_fn.call()
-		_refresh_preview()
+		pan_offset.x -= pan_step_fn.call(); _refresh_preview()
 	)
 	pan_up_btn.pressed.connect(func():
-		pan_offset.y += pan_step_fn.call()
-		_refresh_preview()
+		pan_offset.y += pan_step_fn.call(); _refresh_preview()
 	)
 	pan_down_btn.pressed.connect(func():
-		pan_offset.y -= pan_step_fn.call()
-		_refresh_preview()
+		pan_offset.y -= pan_step_fn.call(); _refresh_preview()
 	)
 	pan_reset_btn.pressed.connect(func():
-		pan_offset = Vector2.ZERO
-		_refresh_preview()
+		pan_offset = Vector2.ZERO; _refresh_preview()
 	)
 
 	if preset_selector.item_count > 0:
@@ -288,6 +286,21 @@ func _input(event: InputEvent) -> void:
 		_refresh_preview()
 
 # ===========================================================================
+#  Формат экспорта
+# ===========================================================================
+func _on_export_format_changed(index: int) -> void:
+	transparent_bg_check.visible = (index == 0)
+	straighten_trunk_check.visible = (index == 2)
+
+func _on_export_pressed_unified() -> void:
+	match export_format_selector.selected:
+		0: _on_export_pressed()
+		1: _on_export_path2d_pressed()
+		2: _on_export_path3d_pressed()
+		3: _on_export_graph_pressed()
+		4: _on_export_graph_res_pressed()
+
+# ===========================================================================
 #  Режимы окраски
 # ===========================================================================
 func _on_color_mode_changed(index: int) -> void:
@@ -313,9 +326,6 @@ func _update_color_ui_visibility() -> void:
 	add_iter_color_button.visible     = false
 	trunk_depth_row.visible           = (color_mode == ColorMode.BY_ITERATION)
 
-# ===========================================================================
-#  Градиент
-# ===========================================================================
 func _on_gradient_changed() -> void:
 	draw_node.queue_redraw()
 
@@ -327,15 +337,13 @@ func _on_edit_gradient_pressed() -> void:
 # ===========================================================================
 func _rebuild_symbol_color_rows() -> void:
 	for row_data in symbol_color_rows:
-		if is_instance_valid(row_data["row"]):
-			row_data["row"].queue_free()
+		if is_instance_valid(row_data["row"]): row_data["row"].queue_free()
 	symbol_color_rows.clear()
 	var symbols := _collect_drawing_symbols()
 	for sym in symbols:
 		var hbox := HBoxContainer.new()
 		var label := Label.new()
-		label.text = sym + ":"
-		label.custom_minimum_size.x = 80
+		label.text = sym + ":"; label.custom_minimum_size.x = 80
 		hbox.add_child(label)
 		var picker := ColorPickerButton.new()
 		picker.custom_minimum_size = Vector2(60, 30)
@@ -344,8 +352,7 @@ func _rebuild_symbol_color_rows() -> void:
 		symbol_colors[sym] = picker.color
 		var captured_sym := sym
 		picker.color_changed.connect(func(c: Color):
-			symbol_colors[captured_sym] = c
-			draw_node.queue_redraw()
+			symbol_colors[captured_sym] = c; draw_node.queue_redraw()
 		)
 		symbol_colors_container.add_child(hbox)
 		symbol_color_rows.append({"symbol": sym, "picker": picker, "row": hbox})
@@ -356,11 +363,9 @@ func _collect_drawing_symbols() -> Array[String]:
 	var rules: Dictionary = _collect_rules_from_ui()
 	var all_chars: String = axiom
 	for key in rules.keys():
-		for rule_data in rules[key]:
-			all_chars += rule_data["replacement"]
+		for rule_data in rules[key]: all_chars += rule_data["replacement"]
 	for ch in all_chars:
-		if ch in DRAWING_SYMBOLS and ch not in symbols:
-			symbols.append(ch)
+		if ch in DRAWING_SYMBOLS and ch not in symbols: symbols.append(ch)
 	return symbols
 
 # ===========================================================================
@@ -379,25 +384,19 @@ func _add_segment_range_row(from_pct: int = 0, to_pct: int = 100, color: Color =
 	var hbox := HBoxContainer.new()
 	hbox.add_theme_constant_override("separation", 4)
 	var from_label := Label.new()
-	from_label.text = "От%:"; from_label.custom_minimum_size.x = 30
-	hbox.add_child(from_label)
+	from_label.text = "От%:"; from_label.custom_minimum_size.x = 30; hbox.add_child(from_label)
 	var from_spin := SpinBox.new()
 	from_spin.min_value = 0; from_spin.max_value = 100; from_spin.suffix = "%"
-	from_spin.value = from_pct; from_spin.custom_minimum_size.x = 70
-	hbox.add_child(from_spin)
+	from_spin.value = from_pct; from_spin.custom_minimum_size.x = 70; hbox.add_child(from_spin)
 	var to_label := Label.new()
-	to_label.text = "До%:"; to_label.custom_minimum_size.x = 30
-	hbox.add_child(to_label)
+	to_label.text = "До%:"; to_label.custom_minimum_size.x = 30; hbox.add_child(to_label)
 	var to_spin := SpinBox.new()
 	to_spin.min_value = 0; to_spin.max_value = 100; to_spin.suffix = "%"
-	to_spin.value = to_pct; to_spin.custom_minimum_size.x = 70
-	hbox.add_child(to_spin)
+	to_spin.value = to_pct; to_spin.custom_minimum_size.x = 70; hbox.add_child(to_spin)
 	var picker := ColorPickerButton.new()
-	picker.custom_minimum_size = Vector2(40, 28); picker.color = color
-	hbox.add_child(picker)
+	picker.custom_minimum_size = Vector2(40, 28); picker.color = color; hbox.add_child(picker)
 	var remove_btn := Button.new()
-	remove_btn.text = "✕"; remove_btn.custom_minimum_size.x = 28
-	hbox.add_child(remove_btn)
+	remove_btn.text = "✕"; remove_btn.custom_minimum_size.x = 28; hbox.add_child(remove_btn)
 	segment_range_container.add_child(hbox)
 	var row_data: Dictionary = {"from": from_spin, "to": to_spin, "picker": picker, "row": hbox}
 	segment_range_rows.append(row_data)
@@ -446,19 +445,15 @@ func _add_iter_picker_row(label_text: String, color: Color, width: float, on_col
 	var hbox := HBoxContainer.new()
 	hbox.add_theme_constant_override("separation", 4)
 	var label := Label.new()
-	label.text = label_text; label.custom_minimum_size.x = 65
-	hbox.add_child(label)
+	label.text = label_text; label.custom_minimum_size.x = 65; hbox.add_child(label)
 	var picker := ColorPickerButton.new()
-	picker.custom_minimum_size = Vector2(40, 28); picker.color = color
-	hbox.add_child(picker)
+	picker.custom_minimum_size = Vector2(40, 28); picker.color = color; hbox.add_child(picker)
 	picker.color_changed.connect(on_color_change)
 	var width_label := Label.new()
-	width_label.text = " ш:"
-	hbox.add_child(width_label)
+	width_label.text = " ш:"; hbox.add_child(width_label)
 	var width_spin := SpinBox.new()
 	width_spin.min_value = 0.5; width_spin.max_value = 10.0; width_spin.step = 0.5
-	width_spin.value = width; width_spin.custom_minimum_size.x = 60
-	hbox.add_child(width_spin)
+	width_spin.value = width; width_spin.custom_minimum_size.x = 60; hbox.add_child(width_spin)
 	width_spin.value_changed.connect(on_width_change)
 	iter_color_container.add_child(hbox)
 
@@ -692,8 +687,7 @@ func _add_rule_row(symbol: String = "", replacement: String = "", weight: float 
 	var symbol_edit := LineEdit.new()
 	symbol_edit.custom_minimum_size.x = 35; symbol_edit.max_length = 1
 	symbol_edit.text = symbol; symbol_edit.placeholder_text = "F"
-	symbol_edit.alignment = HORIZONTAL_ALIGNMENT_CENTER
-	hbox.add_child(symbol_edit)
+	symbol_edit.alignment = HORIZONTAL_ALIGNMENT_CENTER; hbox.add_child(symbol_edit)
 	var arrow := Label.new(); arrow.text = " → "; hbox.add_child(arrow)
 	var replacement_edit := LineEdit.new()
 	replacement_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -702,8 +696,7 @@ func _add_rule_row(symbol: String = "", replacement: String = "", weight: float 
 	var weight_label := Label.new(); weight_label.text = " вес:"; hbox.add_child(weight_label)
 	var weight_spin := SpinBox.new()
 	weight_spin.min_value = 0.01; weight_spin.max_value = 100.0; weight_spin.step = 0.01
-	weight_spin.value = weight; weight_spin.custom_minimum_size.x = 65
-	hbox.add_child(weight_spin)
+	weight_spin.value = weight; weight_spin.custom_minimum_size.x = 65; hbox.add_child(weight_spin)
 	var remove_btn := Button.new(); remove_btn.text = "✕"; remove_btn.custom_minimum_size.x = 32
 	hbox.add_child(remove_btn)
 	rules_container.add_child(hbox)
@@ -781,7 +774,7 @@ func _apply_rules_with_depth(axiom: String, rules: Dictionary, iterations: int) 
 	return result
 
 # ===========================================================================
-#  Интерпретация (превью — без автоподгонки, step влияет + pan_offset)
+#  Интерпретация (превью)
 # ===========================================================================
 func _interpret_colored(char_data: Array, angle_deg: float, step: float, target_size: int) -> void:
 	segments.clear(); max_depth = 0; _has_branching = false
@@ -820,9 +813,7 @@ func _interpret_colored(char_data: Array, angle_deg: float, step: float, target_
 		segments.append({
 			"from": seg["from"] * user_scale + offset,
 			"to": seg["to"] * user_scale + offset,
-			"symbol": seg["symbol"],
-			"depth": seg["depth"],
-			"category": seg["category"]
+			"symbol": seg["symbol"], "depth": seg["depth"], "category": seg["category"]
 		})
 
 # ===========================================================================
@@ -896,38 +887,84 @@ func _build_path2d_tree(branch: Dictionary, parent_node: Node2D, owner: Node2D) 
 		for child in branch["children"]:
 			_build_path2d_tree(child, parent_node, owner)
 
-func _build_path3d_tree(branch: Dictionary, parent_node: Node3D, owner: Node3D, norm_scale: float, center_2d: Vector2) -> void:
-	var points: Array = branch["points"]
-	if points.size() >= 2:
-		var filtered: Array[Vector3] = []
-		for point in points:
-			var p: Vector2 = point
-			var p3 := Vector3((p.x - center_2d.x) * norm_scale, -(p.y - center_2d.y) * norm_scale, 0.0)
-			if filtered.is_empty() or filtered[-1].distance_to(p3) > 0.001:
-				filtered.append(p3)
-		if filtered.size() >= 2:
-			var path_node := Path3D.new()
-			path_node.name = "Branch_%d" % branch["id"]
-			var curve := Curve3D.new()
-			for p3 in filtered: curve.add_point(p3)
-			path_node.curve = curve
-			parent_node.add_child(path_node)
-			path_node.owner = owner
-			for child in branch["children"]:
-				_build_path3d_tree(child, path_node, owner, norm_scale, center_2d)
-		else:
-			for child in branch["children"]:
-				_build_path3d_tree(child, parent_node, owner, norm_scale, center_2d)
-	else:
-		for child in branch["children"]:
-			_build_path3d_tree(child, parent_node, owner, norm_scale, center_2d)
-
 func _collect_all_points_from_tree(branch: Dictionary) -> Array:
 	var all_points: Array = []
 	for p in branch["points"]: all_points.append(p)
 	for child in branch["children"]:
 		all_points.append_array(_collect_all_points_from_tree(child))
 	return all_points
+
+# ===========================================================================
+#  Экспорт Path3D с 3D-вращением веток
+# ===========================================================================
+func _build_path3d_tree(branch: Dictionary, parent_node: Node3D, owner: Node3D, norm_scale: float, center_2d: Vector2, rng: RandomNumberGenerator = null, parent_tip: Vector3 = Vector3.ZERO, parent_rotation: float = 0.0, is_root: bool = true) -> void:
+	var points: Array = branch["points"]
+	if points.size() < 2:
+		for child in branch["children"]:
+			_build_path3d_tree(child, parent_node, owner, norm_scale, center_2d, rng, parent_tip, parent_rotation, false)
+		return
+
+	var raw_points: Array[Vector3] = []
+	for point in points:
+		var p: Vector2 = point
+		var p3 := Vector3((p.x - center_2d.x) * norm_scale, -(p.y - center_2d.y) * norm_scale, 0.0)
+		raw_points.append(p3)
+
+	var branch_origin: Vector3 = raw_points[0]
+	var local_points: Array[Vector3] = []
+	for p3 in raw_points:
+		local_points.append(p3 - branch_origin)
+
+	var rotated_points: Array[Vector3] = []
+	for lp in local_points:
+		var rotated := Vector3(
+			lp.x * cos(parent_rotation) + lp.z * sin(parent_rotation),
+			lp.y,
+			-lp.x * sin(parent_rotation) + lp.z * cos(parent_rotation)
+		)
+		rotated_points.append(rotated)
+
+	var actual_origin: Vector3
+	if is_root:
+		actual_origin = branch_origin
+	else:
+		actual_origin = parent_tip
+
+	var final_points: Array[Vector3] = []
+	for rp in rotated_points:
+		var fp: Vector3 = actual_origin + rp
+		if final_points.is_empty() or final_points[-1].distance_to(fp) > 0.001:
+			final_points.append(fp)
+
+	# --- Выпрямление ствола (если включено) ---
+	if is_root and straighten_trunk_check.button_pressed and final_points.size() >= 2:
+		var root_x: float = final_points[0].x
+		var root_z: float = final_points[0].z
+		for i in range(final_points.size()):
+			final_points[i] = Vector3(root_x, final_points[i].y, root_z)
+
+	if final_points.size() < 2:
+		for child in branch["children"]:
+			_build_path3d_tree(child, parent_node, owner, norm_scale, center_2d, rng, parent_tip, parent_rotation, false)
+		return
+
+	var path_node := Path3D.new()
+	path_node.name = "Branch_%d" % branch["id"]
+	var curve := Curve3D.new()
+	for p3 in final_points:
+		curve.add_point(p3)
+	path_node.curve = curve
+	parent_node.add_child(path_node)
+	path_node.owner = owner
+
+	var this_tip: Vector3 = final_points[-1]
+
+	var child_count: int = branch["children"].size()
+	for i in range(child_count):
+		var child_angle: float = parent_rotation
+		if rng and child_count > 0:
+			child_angle += (float(i) / float(child_count)) * TAU + rng.randf_range(-0.3, 0.3)
+		_build_path3d_tree(branch["children"][i], path_node, owner, norm_scale, center_2d, rng, this_tip, child_angle, false)
 
 # ===========================================================================
 #  Экспорт Path2D
@@ -955,7 +992,7 @@ func _on_export_path2d_pressed() -> void:
 	_set_status("Path2D экспортирован (с иерархией)")
 
 # ===========================================================================
-#  Экспорт Path3D (с нормализацией)
+#  Экспорт Path3D (3D с вращением)
 # ===========================================================================
 func _on_export_path3d_pressed() -> void:
 	if _cached_char_data.is_empty():
@@ -979,7 +1016,10 @@ func _on_export_path3d_pressed() -> void:
 	var center_2d := (all_min + all_max) / 2.0
 	var root := Node3D.new()
 	root.name = "LSystemPaths3D"
-	for branch in tree: _build_path3d_tree(branch, root, root, norm_scale, center_2d)
+	var export_rng := RandomNumberGenerator.new()
+	export_rng.seed = _current_seed
+	for branch in tree:
+		_build_path3d_tree(branch, root, root, norm_scale, center_2d, export_rng, Vector3.ZERO, 0.0, true)
 	var packed := PackedScene.new()
 	if packed.pack(root) != OK:
 		root.free(); _set_status("Ошибка упаковки Path3D"); return
@@ -989,7 +1029,7 @@ func _on_export_path3d_pressed() -> void:
 		root.free(); _set_status("Ошибка сохранения Path3D"); return
 	root.free()
 	if save_path.begins_with("res://"): EditorInterface.get_resource_filesystem().scan()
-	_set_status("Path3D экспортирован (с иерархией)")
+	_set_status("Path3D экспортирован (3D с иерархией)")
 
 # ===========================================================================
 #  Экспорт графа (JSON)
@@ -1223,7 +1263,7 @@ func _export_lsystem_metadata(path: String) -> void:
 				"trunk_depth": trunk_depth
 			}
 	var metadata: Dictionary = {
-		"version": "3.0", "type": "lsystem",
+		"version": "3.1", "type": "lsystem",
 		"exported_at": Time.get_datetime_string_from_system(), "seed": _current_seed,
 		"params": {"axiom": axiom_edit.text.strip_edges(), "rules": rules_export, "angle": angle_slider.value, "step": step_slider.value, "iterations": int(iter_slider.value)},
 		"colors": color_info

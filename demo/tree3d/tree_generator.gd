@@ -1,9 +1,6 @@
 @tool
 extends Node3D
 
-## Генератор 3D-дерева по экспортированной Path3D сцене L-системы
-## Загружает .tscn с иерархией Path3D и строит меши вдоль кривых
-
 @export_file("*.tscn") var path3d_scene_path: String = ""
 @export var trunk_radius: float = 0.15
 @export var radius_decay: float = 0.7
@@ -37,153 +34,160 @@ func generate() -> void:
 		push_error("[Tree3D] Не удалось инстанцировать сцену")
 		return
 
-	# Сбрасываем кэшированные материалы
 	_bark_material = null
 	_leaf_material = null
 
-	_build_tree_recursive(path_root, trunk_radius)
+	# Собираем все ветки с их точками и глубиной
+	var all_branches: Array = []
+	_collect_branches(path_root, 0, all_branches)
+
+	# Строим меши
+	for branch_data in all_branches:
+		var points: Array[Vector3] = branch_data["points"]
+		var depth: int = branch_data["depth"]
+		var has_children: bool = branch_data["has_children"]
+
+		if points.size() < 2:
+			continue
+
+		var start_r: float = trunk_radius * pow(radius_decay, depth)
+		start_r = max(start_r, min_radius)
+		var end_r: float
+		if has_children:
+			end_r = max(start_r * radius_decay, min_radius)
+		else:
+			end_r = min_radius
+
+		var mesh: ArrayMesh = _create_tube_mesh(points, start_r, end_r)
+		if mesh:
+			var mi := MeshInstance3D.new()
+			mi.mesh = mesh
+			mi.material_override = _get_bark_material()
+			add_child(mi)
+
+		if not has_children and leaf_enabled:
+			_create_leaf(points[-1])
 
 	path_root.queue_free()
-
 	_adjust_to_ground()
+	print("[Tree3D] Дерево сгенерировано: %d веток" % all_branches.size())
 
-	print("[Tree3D] Дерево сгенерировано")
+func _collect_branches(node: Node, depth: int, result: Array) -> void:
+	if node is Path3D:
+		var curve: Curve3D = node.curve
+		if curve and curve.point_count >= 2:
+			var points: Array[Vector3] = []
+			var total_len: float = curve.get_baked_length()
+			if total_len >= 0.01:
+				var samples: int = max(int(total_len * 5), 4)
+				for i in range(samples + 1):
+					var t: float = float(i) / float(samples)
+					points.append(curve.sample_baked(t * total_len))
+
+			var has_children: bool = false
+			for child in node.get_children():
+				if child is Path3D:
+					has_children = true
+					break
+
+			if points.size() >= 2:
+				result.append({
+					"points": points,
+					"depth": depth,
+					"has_children": has_children
+				})
+
+		for child in node.get_children():
+			_collect_branches(child, depth + 1, result)
+	else:
+		for child in node.get_children():
+			_collect_branches(child, depth, result)
 
 func _adjust_to_ground() -> void:
 	var min_y: float = INF
 	for child in get_children():
 		if child is MeshInstance3D:
 			var aabb: AABB = child.mesh.get_aabb()
-			var world_min_y: float = child.position.y + aabb.position.y
-			min_y = min(min_y, world_min_y)
+			min_y = min(min_y, child.position.y + aabb.position.y)
 	if min_y != INF and abs(min_y) > 0.01:
 		for child in get_children():
 			if child is MeshInstance3D:
 				child.position.y -= min_y
 
-func _build_tree_recursive(node: Node, current_radius: float) -> void:
-	if node is Path3D:
-		var path3d: Path3D = node
-		var curve: Curve3D = path3d.curve
-		if curve and curve.point_count >= 2:
-			var child_count: int = 0
-			for child in node.get_children():
-				if child is Path3D:
-					child_count += 1
-
-			var end_radius: float
-			if child_count > 0:
-				end_radius = max(current_radius * radius_decay, min_radius)
-			else:
-				end_radius = min_radius
-
-			_create_branch(curve, current_radius, end_radius)
-
-			if child_count == 0 and leaf_enabled:
-				var tip: Vector3 = curve.get_point_position(curve.point_count - 1)
-				_create_leaf(tip)
-
-		var child_radius: float = max(current_radius * radius_decay, min_radius)
-		for child in node.get_children():
-			_build_tree_recursive(child, child_radius)
-	else:
-		for child in node.get_children():
-			_build_tree_recursive(child, current_radius)
-
-func _create_branch(curve: Curve3D, start_radius: float, end_radius: float) -> void:
-	var total_length: float = curve.get_baked_length()
-	if total_length < 0.01:
-		return
-
-	var sample_count: int = max(int(total_length * 5), 4)
-	var points: Array[Vector3] = []
-	for i in range(sample_count + 1):
-		var t: float = float(i) / float(sample_count)
-		var offset: float = t * total_length
-		points.append(curve.sample_baked(offset))
-
-	if points.size() < 2:
-		return
-
-	var mesh: ArrayMesh = _create_tube_mesh(points, start_radius, end_radius)
-	if mesh == null:
-		return
-
-	var mesh_instance := MeshInstance3D.new()
-	mesh_instance.mesh = mesh
-	mesh_instance.material_override = _get_bark_material()
-	add_child(mesh_instance)
-
 func _create_tube_mesh(points: Array[Vector3], start_radius: float, end_radius: float) -> ArrayMesh:
-	var surface_tool := SurfaceTool.new()
-	surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 
 	var rings: Array = []
+	var prev_right: Vector3 = Vector3.ZERO
+	var prev_up: Vector3 = Vector3.ZERO
 
 	for i in range(points.size()):
+		# Направление
 		var forward: Vector3
 		if i < points.size() - 1:
 			forward = (points[i + 1] - points[i]).normalized()
 		else:
 			forward = (points[i] - points[i - 1]).normalized()
-
 		if forward.length() < 0.001:
 			forward = Vector3.UP
 
+		# Радиус — плавная интерполяция
 		var t: float = float(i) / float(points.size() - 1)
 		var r: float = lerp(start_radius, end_radius, t)
 
-		var up: Vector3 = Vector3.UP
-		if abs(forward.dot(up)) > 0.99:
-			up = Vector3.RIGHT
-		var right: Vector3 = forward.cross(up).normalized()
-		up = right.cross(forward).normalized()
+		# Стабильные оси (минимальное вращение между кольцами)
+		var right: Vector3
+		var up: Vector3
+		if i == 0:
+			var ref: Vector3 = Vector3.UP if abs(forward.dot(Vector3.UP)) < 0.99 else Vector3.RIGHT
+			right = forward.cross(ref).normalized()
+			up = right.cross(forward).normalized()
+		else:
+			# Проецируем предыдущий right на плоскость, перпендикулярную forward
+			right = (prev_right - forward * prev_right.dot(forward)).normalized()
+			if right.length() < 0.001:
+				var ref: Vector3 = Vector3.UP if abs(forward.dot(Vector3.UP)) < 0.99 else Vector3.RIGHT
+				right = forward.cross(ref).normalized()
+			up = right.cross(forward).normalized()
 
+		prev_right = right
+		prev_up = up
+
+		# Кольцо
 		var ring: Array[Vector3] = []
 		for j in range(circle_segments):
 			var angle: float = float(j) / float(circle_segments) * TAU
-			var point: Vector3 = points[i] + right * cos(angle) * r + up * sin(angle) * r
-			ring.append(point)
+			ring.append(points[i] + right * cos(angle) * r + up * sin(angle) * r)
 		rings.append(ring)
 
+	# Треугольники
 	for i in range(rings.size() - 1):
-		var ring_a: Array = rings[i]
-		var ring_b: Array = rings[i + 1]
+		var ra: Array = rings[i]
+		var rb: Array = rings[i + 1]
 		for j in range(circle_segments):
-			var j_next: int = (j + 1) % circle_segments
+			var jn: int = (j + 1) % circle_segments
+			st.add_vertex(ra[j])
+			st.add_vertex(ra[jn])
+			st.add_vertex(rb[j])
+			st.add_vertex(ra[jn])
+			st.add_vertex(rb[jn])
+			st.add_vertex(rb[j])
 
-			var a0: Vector3 = ring_a[j]
-			var a1: Vector3 = ring_a[j_next]
-			var b0: Vector3 = ring_b[j]
-			var b1: Vector3 = ring_b[j_next]
-
-			var normal1: Vector3 = (b0 - a0).cross(a1 - a0).normalized()
-			var normal2: Vector3 = (b1 - a1).cross(b0 - a1).normalized()
-
-			surface_tool.set_normal(normal1)
-			surface_tool.add_vertex(a0)
-			surface_tool.add_vertex(a1)
-			surface_tool.add_vertex(b0)
-
-			surface_tool.set_normal(normal2)
-			surface_tool.add_vertex(a1)
-			surface_tool.add_vertex(b1)
-			surface_tool.add_vertex(b0)
-
-	surface_tool.generate_normals()
-	return surface_tool.commit()
+	st.generate_normals()
+	return st.commit()
 
 func _create_leaf(position: Vector3) -> void:
-	var mesh_instance := MeshInstance3D.new()
+	var mi := MeshInstance3D.new()
 	var sphere := SphereMesh.new()
 	sphere.radius = leaf_size
 	sphere.height = leaf_size * 1.5
 	sphere.radial_segments = 8
 	sphere.rings = 4
-	mesh_instance.mesh = sphere
-	mesh_instance.material_override = _get_leaf_material()
-	mesh_instance.position = position
-	add_child(mesh_instance)
+	mi.mesh = sphere
+	mi.material_override = _get_leaf_material()
+	mi.position = position
+	add_child(mi)
 
 var _bark_material: StandardMaterial3D
 var _leaf_material: StandardMaterial3D

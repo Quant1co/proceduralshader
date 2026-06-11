@@ -243,29 +243,21 @@ text = "Сгенерировать"
 layout_mode = 2
 text = "Экспорт:"
 
-[node name="ExportButton" type="Button" parent="ScrollContainer/VBox"]
+[node name="ExportFormatSelector" type="OptionButton" parent="ScrollContainer/VBox"]
 layout_mode = 2
-text = "Экспортировать PNG"
 
 [node name="TransparentBgCheck" type="CheckBox" parent="ScrollContainer/VBox"]
 layout_mode = 2
 text = "Прозрачный фон PNG"
 
-[node name="ExportPath2DButton" type="Button" parent="ScrollContainer/VBox"]
+[node name="StraightenTrunkCheck" type="CheckBox" parent="ScrollContainer/VBox"]
 layout_mode = 2
-text = "Экспорт Path2D (.tscn)"
+text = "Выпрямлять ствол в Path3D"
+button_pressed = true
 
-[node name="ExportPath3DButton" type="Button" parent="ScrollContainer/VBox"]
+[node name="ExportButton" type="Button" parent="ScrollContainer/VBox"]
 layout_mode = 2
-text = "Экспорт Path3D (.tscn)"
-
-[node name="ExportGraphButton" type="Button" parent="ScrollContainer/VBox"]
-layout_mode = 2
-text = "Экспорт граф (.json)"
-
-[node name="ExportGraphResButton" type="Button" parent="ScrollContainer/VBox"]
-layout_mode = 2
-text = "Экспорт граф (.tres)"
+text = "Экспортировать"
 
 [node name="ExportPathButton" type="Button" parent="ScrollContainer/VBox"]
 layout_mode = 2

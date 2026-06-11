@@ -1,0 +1,1283 @@
+[gd_scene load_steps=129 format=3 uid="uid://con7jhpr4ih34"]
+
+[sub_resource type="Curve3D" id="Curve3D_f8dhh"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.45406, -5, 0, 0, 0, 0, 0, 0, 0, 0.45406, -4.77879, 0, 0, 0, 0, 0, 0, 0, 0.45406, -4.55759, 0, 0, 0, 0, 0, 0, 0, 0.45406, -4.33638, 0, 0, 0, 0, 0, 0, 0, 0.45406, -4.11518, 0, 0, 0, 0, 0, 0, 0, 0.547546, -3.9147, 0, 0, 0, 0, 0, 0, 0, 0.641032, -3.71422, 0, 0, 0, 0, 0, 0, 0, 0.734517, -3.51374, 0, 0, 0, 0, 0, 0, 0, 0.828003, -3.31326, 0, 0, 0, 0, 0, 0, 0, 0.828003, -3.09205, 0, 0, 0, 0, 0, 0, 0, 0.828003, -2.87084, 0, 0, 0, 0, 0, 0, 0, 0.828003, -2.64964, 0, 0, 0, 0, 0, 0, 0, 0.828003, -2.42843, 0, 0, 0, 0, 0, 0, 0, 0.828003, -2.20723, 0, 0, 0, 0, 0, 0, 0, 0.828003, -1.98602, 0, 0, 0, 0, 0, 0, 0, 0.828003, -1.76482, 0, 0, 0, 0, 0, 0, 0, 0.828003, -1.54361, 0, 0, 0, 0, 0, 0, 0, 0.828003, -1.3224, 0, 0, 0, 0, 0, 0, 0, 0.828003, -1.1012, 0, 0, 0, 0, 0, 0, 0, 0.828003, -0.879992, 0, 0, 0, 0, 0, 0, 0, 0.828003, -0.658787, 0, 0, 0, 0, 0, 0, 0, 0.921488, -0.458306, 0, 0, 0, 0, 0, 0, 0, 1.01497, -0.257826, 0, 0, 0, 0, 0, 0, 0, 1.10846, -0.0573454, 0, 0, 0, 0, 0, 0, 0, 1.20194, 0.143135, 0, 0, 0, 0, 0, 0, 0, 1.29543, 0.343616, 0, 0, 0, 0, 0, 0, 0, 1.38892, 0.544096, 0, 0, 0, 0, 0, 0, 0, 1.4824, 0.744576, 0, 0, 0, 0, 0, 0, 0, 1.65186, 0.886765, 0, 0, 0, 0, 0, 0, 0, 1.74534, 1.08724, 0, 0, 0, 0, 0, 0, 0, 1.91479, 1.22943, 0, 0, 0, 0, 0, 0, 0, 2.08425, 1.37162, 0, 0, 0, 0, 0, 0, 0, 2.2537, 1.51381, 0, 0, 0, 0, 0, 0, 0, 2.42315, 1.656, 0, 0, 0, 0, 0, 0, 0, 2.63682, 1.71325, 0, 0, 0, 0, 0, 0, 0, 2.85049, 1.7705, 0),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 36
+
+[sub_resource type="Curve3D" id="Curve3D_s6koy"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.85049, 1.7705, 0, 0, 0, 0, 0, 0, 0, 2.85049, 1.99171, 0, 0, 0, 0, 0, 0, 0, 2.85049, 2.21292, 0, 0, 0, 0, 0, 0, 0, 2.85049, 2.43412, 0, 0, 0, 0, 0, 0, 0, 2.85049, 2.65533, 0, 0, 0, 0, 0, 0, 0, 2.85049, 2.87653, 0, 0, 0, 0, 0, 0, 0, 2.85049, 3.09774, 0, 0, 0, 0, 0, 0, 0, 2.85049, 3.31894, 0, 0, 0, 0, 0, 0, 0, 2.85049, 3.54015, 0, 0, 0, 0, 0, 0, 0, 2.94005, 3.74063, -0.0268183, 0, 0, 0, 0, 0, 0, 3.10238, 3.88282, -0.0754294, 0, 0, 0, 0, 0, 0, 3.19194, 4.0833, -0.102248, 0, 0, 0, 0, 0, 0, 3.28149, 4.28378, -0.129066, 0, 0, 0, 0, 0, 0, 3.37105, 4.48426, -0.155884, 0, 0, 0, 0, 0, 0, 3.53338, 4.62645, -0.204495, 0, 0, 0, 0, 0, 0, 3.69571, 4.76864, -0.253107),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 16
+
+[sub_resource type="Curve3D" id="Curve3D_oc1qh"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.69571, 4.76864, -0.253107, 0, 0, 0, 0, 0, 0, 3.78251, 4.96912, -0.287816, 0, 0, 0, 0, 0, 0, 3.86932, 5.1696, -0.322526, 0, 0, 0, 0, 0, 0, 4.02666, 5.31179, -0.385442, 0, 0, 0, 0, 0, 0, 4.184, 5.45397, -0.448358, 0, 0, 0, 0, 0, 0, 4.2708, 5.65445, -0.483068, 0, 0, 0, 0, 0, 0, 4.3576, 5.85494, -0.517778, 0, 0, 0, 0, 0, 0, 4.44441, 6.05542, -0.552487, 0, 0, 0, 0, 0, 0, 4.53121, 6.2559, -0.587197, 0, 0, 0, 0, 0, 0, 4.61801, 6.45638, -0.621907, 0, 0, 0, 0, 0, 0, 4.70482, 6.65686, -0.656617, 0, 0, 0, 0, 0, 0, 4.86216, 6.79905, -0.719533, 0, 0, 0, 0, 0, 0, 5.0195, 6.94123, -0.782449, 0, 0, 0, 0, 0, 0, 5.17684, 7.08342, -0.845364, 0, 0, 0, 0, 0, 0, 5.33418, 7.22561, -0.90828, 0, 0, 0, 0, 0, 0, 5.53257, 7.28286, -0.987612, 0, 0, 0, 0, 0, 0, 5.73097, 7.34012, -1.06694),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 17
+
+[sub_resource type="Curve3D" id="Curve3D_xlhcj"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.73097, 7.34012, -1.06694, 0, 0, 0, 0, 0, 0, 5.81719, 7.5406, -1.10307, 0, 0, 0, 0, 0, 0, 5.90342, 7.74108, -1.13919, 0, 0, 0, 0, 0, 0, 5.98964, 7.94156, -1.17532, 0, 0, 0, 0, 0, 0, 6.07587, 8.14204, -1.21144, 0, 0, 0, 0, 0, 0, 6.23216, 8.28423, -1.27692, 0, 0, 0, 0, 0, 0, 6.38845, 8.42641, -1.3424),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[sub_resource type="Curve3D" id="Curve3D_vglim"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 6.38845, 8.42641, -1.3424, 0, 0, 0, 0, 0, 0, 6.55599, 8.5686, -1.3678, 0, 0, 0, 0, 0, 0, 6.72353, 8.71079, -1.39321, 0, 0, 0, 0, 0, 0, 6.89106, 8.85298, -1.41861, 0, 0, 0, 0, 0, 0, 7.0586, 8.99517, -1.44402, 0, 0, 0, 0, 0, 0, 7.26986, 9.05242, -1.47605, 0, 0, 0, 0, 0, 0, 7.48111, 9.10967, -1.50809),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[sub_resource type="Curve3D" id="Curve3D_2dscc"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 7.48111, 9.10967, -1.50809, 0, 0, 0, 0, 0, 0, 7.65056, 9.25186, -1.50838, 0, 0, 0, 0, 0, 0, 7.82001, 9.39405, -1.50868),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_81u80"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 7.82001, 9.39405, -1.50868, 0, 0, 0, 0, 0, 0, 8.03319, 9.4513, -1.49412, 0, 0, 0, 0, 0, 0, 8.24636, 9.50855, -1.47956),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_qi2hl"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 8.24636, 9.50855, -1.47956, 0, 0, 0, 0, 0, 0, 8.08225, 9.65074, -1.52178),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_jhlre"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 7.82001, 9.39405, -1.50868, 0, 0, 0, 0, 0, 0, 7.77444, 9.59453, -1.42706),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_04phx"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 7.48111, 9.10967, -1.50809, 0, 0, 0, 0, 0, 0, 7.44777, 9.31015, -1.59543, 0, 0, 0, 0, 0, 0, 7.41444, 9.51063, -1.68277, 0, 0, 0, 0, 0, 0, 7.3811, 9.71111, -1.77011, 0, 0, 0, 0, 0, 0, 7.34776, 9.91159, -1.85745),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_fi1o1"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 7.34776, 9.91159, -1.85745, 0, 0, 0, 0, 0, 0, 7.34776, 10.1328, -1.85745),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_5x5ew"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 7.48111, 9.10967, -1.50809, 0, 0, 0, 0, 0, 0, 7.50648, 9.25186, -1.34054),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_lwmy8"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 6.38845, 8.42641, -1.3424, 0, 0, 0, 0, 0, 0, 6.37268, 8.62689, -1.43454, 0, 0, 0, 0, 0, 0, 6.35691, 8.82738, -1.52669),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_byu0v"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 6.35691, 8.82738, -1.52669, 0, 0, 0, 0, 0, 0, 6.28871, 8.96956, -1.68181, 0, 0, 0, 0, 0, 0, 6.22052, 9.11175, -1.83694),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_nrwhg"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 6.22052, 9.11175, -1.83694, 0, 0, 0, 0, 0, 0, 6.27461, 9.31223, -1.76069),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_fqsvb"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 6.35691, 8.82738, -1.52669, 0, 0, 0, 0, 0, 0, 6.35691, 9.04858, -1.52669),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_ymb3b"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 6.38845, 8.42641, -1.3424, 0, 0, 0, 0, 0, 0, 6.38845, 8.64762, -1.3424, 0, 0, 0, 0, 0, 0, 6.38845, 8.86883, -1.3424, 0, 0, 0, 0, 0, 0, 6.38845, 9.09003, -1.3424, 0, 0, 0, 0, 0, 0, 6.38845, 9.31124, -1.3424),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_phk1u"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 6.38845, 9.31124, -1.3424, 0, 0, 0, 0, 0, 0, 6.30903, 9.51172, -1.39171),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_eff7g"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 6.38845, 8.42641, -1.3424, 0, 0, 0, 0, 0, 0, 6.46035, 8.62689, -1.28265),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_rx81r"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.73097, 7.34012, -1.06694, 0, 0, 0, 0, 0, 0, 5.73097, 7.56132, -1.06694, 0, 0, 0, 0, 0, 0, 5.73097, 7.78253, -1.06694, 0, 0, 0, 0, 0, 0, 5.73097, 8.00373, -1.06694, 0, 0, 0, 0, 0, 0, 5.73097, 8.22494, -1.06694, 0, 0, 0, 0, 0, 0, 5.73097, 8.44614, -1.06694, 0, 0, 0, 0, 0, 0, 5.73097, 8.66735, -1.06694, 0, 0, 0, 0, 0, 0, 5.73097, 8.88856, -1.06694, 0, 0, 0, 0, 0, 0, 5.73097, 9.10976, -1.06694, 0, 0, 0, 0, 0, 0, 5.74731, 9.31024, -1.15899, 0, 0, 0, 0, 0, 0, 5.76365, 9.51072, -1.25104),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 11
+
+[sub_resource type="Curve3D" id="Curve3D_kkpll"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.76365, 9.51072, -1.25104, 0, 0, 0, 0, 0, 0, 5.76365, 9.73193, -1.25104, 0, 0, 0, 0, 0, 0, 5.76365, 9.95313, -1.25104),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_ddkda"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.76365, 9.95313, -1.25104, 0, 0, 0, 0, 0, 0, 5.76663, 10.1536, -1.34447, 0, 0, 0, 0, 0, 0, 5.76961, 10.3541, -1.43791),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_boomf"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.76961, 10.3541, -1.43791, 0, 0, 0, 0, 0, 0, 5.76961, 10.5753, -1.43791),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_1buf1"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.76365, 9.95313, -1.25104, 0, 0, 0, 0, 0, 0, 5.69721, 10.1536, -1.3168),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_yqhe3"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.76365, 9.51072, -1.25104, 0, 0, 0, 0, 0, 0, 5.85315, 9.7112, -1.22403, 0, 0, 0, 0, 0, 0, 5.94265, 9.91168, -1.19702, 0, 0, 0, 0, 0, 0, 6.03215, 10.1122, -1.17002, 0, 0, 0, 0, 0, 0, 6.12165, 10.3126, -1.14301),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_dx054"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 6.12165, 10.3126, -1.14301, 0, 0, 0, 0, 0, 0, 5.97212, 10.4548, -1.22273),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_dwcr6"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.76365, 9.51072, -1.25104, 0, 0, 0, 0, 0, 0, 5.76365, 9.73193, -1.25104),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_2tfdi"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.73097, 7.34012, -1.06694, 0, 0, 0, 0, 0, 0, 5.60611, 7.4823, -1.1815, 0, 0, 0, 0, 0, 0, 5.48125, 7.62449, -1.29606),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_f85wv"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.48125, 7.62449, -1.29606, 0, 0, 0, 0, 0, 0, 5.31693, 7.68175, -1.43265, 0, 0, 0, 0, 0, 0, 5.15261, 7.739, -1.56923),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_05nui"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.15261, 7.739, -1.56923, 0, 0, 0, 0, 0, 0, 5.27767, 7.88119, -1.45488),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_trmcq"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.48125, 7.62449, -1.29606, 0, 0, 0, 0, 0, 0, 5.57088, 7.82497, -1.32262),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_e6tbk"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.73097, 7.34012, -1.06694, 0, 0, 0, 0, 0, 0, 5.65363, 7.5406, -1.01443, 0, 0, 0, 0, 0, 0, 5.57628, 7.74108, -0.961917, 0, 0, 0, 0, 0, 0, 5.49894, 7.94156, -0.909404, 0, 0, 0, 0, 0, 0, 5.4216, 8.14204, -0.856891),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_4rssh"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.4216, 8.14204, -0.856891, 0, 0, 0, 0, 0, 0, 5.4216, 8.36324, -0.856891),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_vo6gr"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5.73097, 7.34012, -1.06694, 0, 0, 0, 0, 0, 0, 5.87945, 7.4823, -0.985281),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_q0uu6"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.69571, 4.76864, -0.253107, 0, 0, 0, 0, 0, 0, 3.69571, 4.98984, -0.253107, 0, 0, 0, 0, 0, 0, 3.69571, 5.21105, -0.253107, 0, 0, 0, 0, 0, 0, 3.69571, 5.43225, -0.253107, 0, 0, 0, 0, 0, 0, 3.69571, 5.65346, -0.253107, 0, 0, 0, 0, 0, 0, 3.7482, 5.85394, -0.330468, 0, 0, 0, 0, 0, 0, 3.80068, 6.05442, -0.40783),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[sub_resource type="Curve3D" id="Curve3D_rsbk0"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.80068, 6.05442, -0.40783, 0, 0, 0, 0, 0, 0, 3.84395, 6.2549, -0.490699, 0, 0, 0, 0, 0, 0, 3.88722, 6.45538, -0.573569, 0, 0, 0, 0, 0, 0, 3.93049, 6.65586, -0.656438, 0, 0, 0, 0, 0, 0, 3.97376, 6.85634, -0.739308, 0, 0, 0, 0, 0, 0, 4.05219, 6.99853, -0.889519, 0, 0, 0, 0, 0, 0, 4.13062, 7.14072, -1.03973),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[sub_resource type="Curve3D" id="Curve3D_xah1h"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4.13062, 7.14072, -1.03973, 0, 0, 0, 0, 0, 0, 4.16741, 7.3412, -1.12567, 0, 0, 0, 0, 0, 0, 4.20421, 7.54168, -1.21161),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_kdhu4"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4.20421, 7.54168, -1.21161, 0, 0, 0, 0, 0, 0, 4.25594, 7.68387, -1.37297, 0, 0, 0, 0, 0, 0, 4.30767, 7.82606, -1.53434),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_vjpt8"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4.30767, 7.82606, -1.53434, 0, 0, 0, 0, 0, 0, 4.25534, 8.02654, -1.45687),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_k6vbt"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4.20421, 7.54168, -1.21161, 0, 0, 0, 0, 0, 0, 4.20421, 7.76289, -1.21161),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_tv6yx"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4.13062, 7.14072, -1.03973, 0, 0, 0, 0, 0, 0, 4.13062, 7.36193, -1.03973, 0, 0, 0, 0, 0, 0, 4.13062, 7.58313, -1.03973, 0, 0, 0, 0, 0, 0, 4.13062, 7.80434, -1.03973, 0, 0, 0, 0, 0, 0, 4.13062, 8.02554, -1.03973),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_uqkyb"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4.13062, 8.02554, -1.03973, 0, 0, 0, 0, 0, 0, 4.07109, 8.22602, -1.11181),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_awens"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4.13062, 7.14072, -1.03973, 0, 0, 0, 0, 0, 0, 4.19717, 7.3412, -0.974076),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_37f3r"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.80068, 6.05442, -0.40783, 0, 0, 0, 0, 0, 0, 3.80068, 6.27563, -0.40783, 0, 0, 0, 0, 0, 0, 3.80068, 6.49683, -0.40783),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_fdbrq"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.80068, 6.49683, -0.40783, 0, 0, 0, 0, 0, 0, 3.71608, 6.69731, -0.447602, 0, 0, 0, 0, 0, 0, 3.63148, 6.89779, -0.487375),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_43ys8"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.63148, 6.89779, -0.487375, 0, 0, 0, 0, 0, 0, 3.63148, 7.119, -0.487375),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_casbx"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.80068, 6.49683, -0.40783, 0, 0, 0, 0, 0, 0, 3.71797, 6.69731, -0.364266),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_1qom5"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.80068, 6.05442, -0.40783, 0, 0, 0, 0, 0, 0, 3.88033, 6.2549, -0.456772, 0, 0, 0, 0, 0, 0, 3.95998, 6.45538, -0.505714, 0, 0, 0, 0, 0, 0, 4.03963, 6.65586, -0.554656, 0, 0, 0, 0, 0, 0, 4.11928, 6.85634, -0.603599),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_qkvtq"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4.11928, 6.85634, -0.603599, 0, 0, 0, 0, 0, 0, 3.98395, 6.99853, -0.50162),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_7t3ti"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.80068, 6.05442, -0.40783, 0, 0, 0, 0, 0, 0, 3.80068, 6.27563, -0.40783),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_ma3lu"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.69571, 4.76864, -0.253107, 0, 0, 0, 0, 0, 0, 3.72016, 4.96912, -0.162876, 0, 0, 0, 0, 0, 0, 3.74462, 5.1696, -0.072645, 0, 0, 0, 0, 0, 0, 3.76907, 5.37008, 0.0175858, 0, 0, 0, 0, 0, 0, 3.76907, 5.59128, 0.0175858, 0, 0, 0, 0, 0, 0, 3.79352, 5.79176, 0.107817, 0, 0, 0, 0, 0, 0, 3.81798, 5.99224, 0.198047, 0, 0, 0, 0, 0, 0, 3.84243, 6.19273, 0.288278, 0, 0, 0, 0, 0, 0, 3.86688, 6.39321, 0.378509, 0, 0, 0, 0, 0, 0, 3.89134, 6.59369, 0.46874, 0, 0, 0, 0, 0, 0, 3.89134, 6.81489, 0.46874, 0, 0, 0, 0, 0, 0, 3.89134, 7.0361, 0.46874),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 12
+
+[sub_resource type="Curve3D" id="Curve3D_7r3ep"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.89134, 7.0361, 0.46874, 0, 0, 0, 0, 0, 0, 3.93765, 7.23658, 0.549945, 0, 0, 0, 0, 0, 0, 3.98397, 7.43706, 0.631151),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_i042j"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.98397, 7.43706, 0.631151, 0, 0, 0, 0, 0, 0, 3.98397, 7.65826, 0.631151, 0, 0, 0, 0, 0, 0, 3.98397, 7.87947, 0.631151),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_1ii4p"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.98397, 7.87947, 0.631151, 0, 0, 0, 0, 0, 0, 3.96594, 8.07995, 0.53942),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_nsqd8"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.98397, 7.43706, 0.631151, 0, 0, 0, 0, 0, 0, 3.82073, 7.57925, 0.58569),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_68uy7"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.89134, 7.0361, 0.46874, 0, 0, 0, 0, 0, 0, 4.04722, 7.17829, 0.402308, 0, 0, 0, 0, 0, 0, 4.20311, 7.32047, 0.335876, 0, 0, 0, 0, 0, 0, 4.359, 7.46266, 0.269444, 0, 0, 0, 0, 0, 0, 4.51489, 7.60485, 0.203012),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_o6mov"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4.51489, 7.60485, 0.203012, 0, 0, 0, 0, 0, 0, 4.30649, 7.6621, 0.250173),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_2khxh"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.89134, 7.0361, 0.46874, 0, 0, 0, 0, 0, 0, 3.79806, 7.23658, 0.474984),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_k7dqc"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.69571, 4.76864, -0.253107, 0, 0, 0, 0, 0, 0, 3.60251, 4.96912, -0.245782, 0, 0, 0, 0, 0, 0, 3.50931, 5.1696, -0.238457),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_r21br"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.50931, 5.1696, -0.238457, 0, 0, 0, 0, 0, 0, 3.34987, 5.31179, -0.181085, 0, 0, 0, 0, 0, 0, 3.19042, 5.45397, -0.123712),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_0qr0f"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.19042, 5.45397, -0.123712, 0, 0, 0, 0, 0, 0, 3.2656, 5.65446, -0.179288),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_ykdwh"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.50931, 5.1696, -0.238457, 0, 0, 0, 0, 0, 0, 3.50931, 5.3908, -0.238457),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_isloe"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.69571, 4.76864, -0.253107, 0, 0, 0, 0, 0, 0, 3.69571, 4.98984, -0.253107, 0, 0, 0, 0, 0, 0, 3.69571, 5.21105, -0.253107, 0, 0, 0, 0, 0, 0, 3.69571, 5.43225, -0.253107, 0, 0, 0, 0, 0, 0, 3.69571, 5.65346, -0.253107),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_0cpq7"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.69571, 5.65346, -0.253107, 0, 0, 0, 0, 0, 0, 3.61072, 5.85394, -0.214173),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_634sd"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.69571, 4.76864, -0.253107, 0, 0, 0, 0, 0, 0, 3.75578, 4.96912, -0.181476),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_xd2kf"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.85049, 1.7705, 0, 0, 0, 0, 0, 0, 0, 2.79976, 1.97098, 0.0785215, 0, 0, 0, 0, 0, 0, 2.74902, 2.17146, 0.157043, 0, 0, 0, 0, 0, 0, 2.69829, 2.37195, 0.235564, 0, 0, 0, 0, 0, 0, 2.64756, 2.57243, 0.314086, 0, 0, 0, 0, 0, 0, 2.59682, 2.77291, 0.392607, 0, 0, 0, 0, 0, 0, 2.54609, 2.97339, 0.471129, 0, 0, 0, 0, 0, 0, 2.49535, 3.17387, 0.54965, 0, 0, 0, 0, 0, 0, 2.44462, 3.37435, 0.628172, 0, 0, 0, 0, 0, 0, 2.39389, 3.57483, 0.706693, 0, 0, 0, 0, 0, 0, 2.34315, 3.77531, 0.785215, 0, 0, 0, 0, 0, 0, 2.29242, 3.97579, 0.863736, 0, 0, 0, 0, 0, 0, 2.29242, 4.19699, 0.863736, 0, 0, 0, 0, 0, 0, 2.24168, 4.39748, 0.942258, 0, 0, 0, 0, 0, 0, 2.19095, 4.59796, 1.02078, 0, 0, 0, 0, 0, 0, 2.14022, 4.79844, 1.0993, 0, 0, 0, 0, 0, 0, 2.08948, 4.99892, 1.17782, 0, 0, 0, 0, 0, 0, 2.03875, 5.1994, 1.25634, 0, 0, 0, 0, 0, 0, 2.03875, 5.4206, 1.25634, 0, 0, 0, 0, 0, 0, 2.08948, 5.62108, 1.17782, 0, 0, 0, 0, 0, 0, 2.08948, 5.84229, 1.17782, 0, 0, 0, 0, 0, 0, 2.08948, 6.06349, 1.17782, 0, 0, 0, 0, 0, 0, 2.14022, 6.26397, 1.0993, 0, 0, 0, 0, 0, 0, 2.14022, 6.48518, 1.0993, 0, 0, 0, 0, 0, 0, 2.19095, 6.68566, 1.02078, 0, 0, 0, 0, 0, 0, 2.24168, 6.88614, 0.942258),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 26
+
+[sub_resource type="Curve3D" id="Curve3D_vv6ko"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.24168, 6.88614, 0.942258, 0, 0, 0, 0, 0, 0, 2.20825, 7.08662, 1.02956, 0, 0, 0, 0, 0, 0, 2.17483, 7.2871, 1.11687, 0, 0, 0, 0, 0, 0, 2.1414, 7.48758, 1.20417, 0, 0, 0, 0, 0, 0, 2.10797, 7.68806, 1.29147, 0, 0, 0, 0, 0, 0, 2.10797, 7.90927, 1.29147, 0, 0, 0, 0, 0, 0, 2.10797, 8.13047, 1.29147),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[sub_resource type="Curve3D" id="Curve3D_spue7"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.10797, 8.13047, 1.29147, 0, 0, 0, 0, 0, 0, 2.10797, 8.35168, 1.29147, 0, 0, 0, 0, 0, 0, 2.10797, 8.57289, 1.29147, 0, 0, 0, 0, 0, 0, 2.10797, 8.79409, 1.29147, 0, 0, 0, 0, 0, 0, 2.10797, 9.0153, 1.29147, 0, 0, 0, 0, 0, 0, 2.1289, 9.21578, 1.20036, 0, 0, 0, 0, 0, 0, 2.14983, 9.41626, 1.10925),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[sub_resource type="Curve3D" id="Curve3D_vqvq5"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.14983, 9.41626, 1.10925, 0, 0, 0, 0, 0, 0, 2.14983, 9.63746, 1.10925, 0, 0, 0, 0, 0, 0, 2.14983, 9.85867, 1.10925),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_hp8ab"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.14983, 9.85867, 1.10925, 0, 0, 0, 0, 0, 0, 2.1399, 10.0591, 1.01629, 0, 0, 0, 0, 0, 0, 2.12997, 10.2596, 0.923336),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_kcnsd"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.12997, 10.2596, 0.923336, 0, 0, 0, 0, 0, 0, 2.12997, 10.4808, 0.923336),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_qaabw"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.14983, 9.85867, 1.10925, 0, 0, 0, 0, 0, 0, 2.08028, 10.0591, 1.04678),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_4wm8m"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.14983, 9.41626, 1.10925, 0, 0, 0, 0, 0, 0, 2.23918, 9.61674, 1.13676, 0, 0, 0, 0, 0, 0, 2.32852, 9.81722, 1.16427, 0, 0, 0, 0, 0, 0, 2.41787, 10.0177, 1.19177, 0, 0, 0, 0, 0, 0, 2.50722, 10.2182, 1.21928),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_jlyoc"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.50722, 10.2182, 1.21928, 0, 0, 0, 0, 0, 0, 2.34692, 10.3604, 1.16434),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_yyegv"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.14983, 9.41626, 1.10925, 0, 0, 0, 0, 0, 0, 2.14983, 9.63746, 1.10925),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_upkx7"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.10797, 8.13047, 1.29147, 0, 0, 0, 0, 0, 0, 2.1913, 8.33095, 1.33384, 0, 0, 0, 0, 0, 0, 2.27463, 8.53144, 1.37621),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_piwnh"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.27463, 8.53144, 1.37621, 0, 0, 0, 0, 0, 0, 2.27463, 8.75264, 1.37621, 0, 0, 0, 0, 0, 0, 2.27463, 8.97385, 1.37621),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_3br6l"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.27463, 8.97385, 1.37621, 0, 0, 0, 0, 0, 0, 2.1895, 9.17433, 1.3376),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_01nh5"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.27463, 8.53144, 1.37621, 0, 0, 0, 0, 0, 0, 2.12316, 8.67362, 1.45216),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_udsqx"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.10797, 8.13047, 1.29147, 0, 0, 0, 0, 0, 0, 2.23892, 8.27266, 1.18394, 0, 0, 0, 0, 0, 0, 2.36988, 8.41485, 1.0764, 0, 0, 0, 0, 0, 0, 2.50084, 8.55704, 0.968858, 0, 0, 0, 0, 0, 0, 2.6318, 8.69923, 0.861319),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_a5j1w"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.6318, 8.69923, 0.861319, 0, 0, 0, 0, 0, 0, 2.43747, 8.75648, 0.950158),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_0lncb"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.10797, 8.13047, 1.29147, 0, 0, 0, 0, 0, 0, 2.01728, 8.33095, 1.26877),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_a4sr0"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.24168, 6.88614, 0.942258, 0, 0, 0, 0, 0, 0, 2.31492, 7.02833, 1.09507, 0, 0, 0, 0, 0, 0, 2.38816, 7.17052, 1.24787, 0, 0, 0, 0, 0, 0, 2.4614, 7.31271, 1.40068, 0, 0, 0, 0, 0, 0, 2.53464, 7.4549, 1.55349, 0, 0, 0, 0, 0, 0, 2.60788, 7.59708, 1.7063, 0, 0, 0, 0, 0, 0, 2.68112, 7.73927, 1.85911, 0, 0, 0, 0, 0, 0, 2.75436, 7.88146, 2.01192, 0, 0, 0, 0, 0, 0, 2.79477, 8.08194, 2.09622, 0, 0, 0, 0, 0, 0, 2.86801, 8.22413, 2.24903, 0, 0, 0, 0, 0, 0, 2.90842, 8.42461, 2.33333, 0, 0, 0, 0, 0, 0, 2.94882, 8.62509, 2.41763),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 12
+
+[sub_resource type="Curve3D" id="Curve3D_auto0"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.94882, 8.62509, 2.41763, 0, 0, 0, 0, 0, 0, 2.97933, 8.76728, 2.58432, 0, 0, 0, 0, 0, 0, 3.00984, 8.90947, 2.751),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_yfahd"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.00984, 8.90947, 2.751, 0, 0, 0, 0, 0, 0, 3.0482, 9.10995, 2.83625, 0, 0, 0, 0, 0, 0, 3.08656, 9.31043, 2.92151),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_ng8e0"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.08656, 9.31043, 2.92151, 0, 0, 0, 0, 0, 0, 2.97523, 9.45262, 2.79375),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_bx6vj"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.00984, 8.90947, 2.751, 0, 0, 0, 0, 0, 0, 2.80477, 8.96672, 2.69097),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_my2yp"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.94882, 8.62509, 2.41763, 0, 0, 0, 0, 0, 0, 3.12947, 8.68234, 2.30353, 0, 0, 0, 0, 0, 0, 3.31012, 8.7396, 2.18943, 0, 0, 0, 0, 0, 0, 3.49078, 8.79685, 2.07533, 0, 0, 0, 0, 0, 0, 3.67143, 8.8541, 1.96122),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_m1k7v"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.67143, 8.8541, 1.96122, 0, 0, 0, 0, 0, 0, 3.49557, 8.81569, 2.0898),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_2wv4x"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.94882, 8.62509, 2.41763, 0, 0, 0, 0, 0, 0, 2.78979, 8.76728, 2.47615),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_5cqf1"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.24168, 6.88614, 0.942258, 0, 0, 0, 0, 0, 0, 2.24168, 7.10735, 0.942258, 0, 0, 0, 0, 0, 0, 2.24168, 7.32855, 0.942258),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_7toyx"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.24168, 7.32855, 0.942258, 0, 0, 0, 0, 0, 0, 2.15017, 7.52903, 0.961359, 0, 0, 0, 0, 0, 0, 2.05866, 7.72951, 0.98046),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_h8jtw"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.05866, 7.72951, 0.98046, 0, 0, 0, 0, 0, 0, 2.05866, 7.95072, 0.98046),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_8wkng"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.24168, 7.32855, 0.942258, 0, 0, 0, 0, 0, 0, 2.20779, 7.52903, 1.02938),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_8op8s"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.24168, 6.88614, 0.942258, 0, 0, 0, 0, 0, 0, 2.27357, 7.08662, 0.854378, 0, 0, 0, 0, 0, 0, 2.30546, 7.2871, 0.766498, 0, 0, 0, 0, 0, 0, 2.33734, 7.48758, 0.678618, 0, 0, 0, 0, 0, 0, 2.36923, 7.68806, 0.590738),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_xqp1h"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.36923, 7.68806, 0.590738, 0, 0, 0, 0, 0, 0, 2.3357, 7.83025, 0.756843),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_k8ync"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.24168, 6.88614, 0.942258, 0, 0, 0, 0, 0, 0, 2.24168, 7.10735, 0.942258),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_oyrxv"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.85049, 1.7705, 0, 0, 0, 0, 0, 0, 0, 2.83332, 1.97098, -0.0918954, 0, 0, 0, 0, 0, 0, 2.81615, 2.17146, -0.183791, 0, 0, 0, 0, 0, 0, 2.79898, 2.37195, -0.275686, 0, 0, 0, 0, 0, 0, 2.78181, 2.57243, -0.367582, 0, 0, 0, 0, 0, 0, 2.75069, 2.71461, -0.534153, 0, 0, 0, 0, 0, 0, 2.71957, 2.8568, -0.700724),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[sub_resource type="Curve3D" id="Curve3D_sjwus"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71957, 2.8568, -0.700724, 0, 0, 0, 0, 0, 0, 2.71906, 2.99899, -0.870176, 0, 0, 0, 0, 0, 0, 2.71854, 3.14118, -1.03963, 0, 0, 0, 0, 0, 0, 2.71803, 3.28337, -1.20908, 0, 0, 0, 0, 0, 0, 2.71752, 3.42556, -1.37853, 0, 0, 0, 0, 0, 0, 2.71687, 3.48281, -1.5922, 0, 0, 0, 0, 0, 0, 2.71623, 3.54006, -1.80587),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[sub_resource type="Curve3D" id="Curve3D_341pp"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71623, 3.54006, -1.80587, 0, 0, 0, 0, 0, 0, 2.73447, 3.68225, -1.97434, 0, 0, 0, 0, 0, 0, 2.75271, 3.82444, -2.14281),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_friaa"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.75271, 3.82444, -2.14281, 0, 0, 0, 0, 0, 0, 2.79401, 3.88169, -2.35245, 0, 0, 0, 0, 0, 0, 2.8353, 3.93894, -2.56209),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_641s5"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.8353, 3.93894, -2.56209, 0, 0, 0, 0, 0, 0, 2.84196, 4.08113, -2.39276),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_1yl8q"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.75271, 3.82444, -2.14281, 0, 0, 0, 0, 0, 0, 2.8232, 4.02492, -2.08141),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_b6j8e"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71623, 3.54006, -1.80587, 0, 0, 0, 0, 0, 0, 2.62288, 3.74054, -1.80089, 0, 0, 0, 0, 0, 0, 2.52952, 3.94102, -1.79592, 0, 0, 0, 0, 0, 0, 2.43617, 4.1415, -1.79094, 0, 0, 0, 0, 0, 0, 2.34282, 4.34198, -1.78597),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_d0lyi"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.34282, 4.34198, -1.78597, 0, 0, 0, 0, 0, 0, 2.34282, 4.56319, -1.78597),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_5h4ko"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71623, 3.54006, -1.80587, 0, 0, 0, 0, 0, 0, 2.87883, 3.68225, -1.75815),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_egadl"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71957, 2.8568, -0.700724, 0, 0, 0, 0, 0, 0, 2.63266, 3.05728, -0.735169, 0, 0, 0, 0, 0, 0, 2.54575, 3.25776, -0.769615),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_53q61"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.54575, 3.25776, -0.769615, 0, 0, 0, 0, 0, 0, 2.3937, 3.39995, -0.844419, 0, 0, 0, 0, 0, 0, 2.24166, 3.54214, -0.919224),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_f782j"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.24166, 3.54214, -0.919224, 0, 0, 0, 0, 0, 0, 2.33376, 3.74262, -0.903198),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_42t7g"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.54575, 3.25776, -0.769615, 0, 0, 0, 0, 0, 0, 2.54575, 3.47897, -0.769615),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_lpcpq"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71957, 2.8568, -0.700724, 0, 0, 0, 0, 0, 0, 2.71957, 3.07801, -0.700724, 0, 0, 0, 0, 0, 0, 2.71957, 3.29921, -0.700724, 0, 0, 0, 0, 0, 0, 2.71957, 3.52042, -0.700724, 0, 0, 0, 0, 0, 0, 2.71957, 3.74163, -0.700724),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_rm50p"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71957, 3.74163, -0.700724, 0, 0, 0, 0, 0, 0, 2.69254, 3.94211, -0.611232),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_phviy"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71957, 2.8568, -0.700724, 0, 0, 0, 0, 0, 0, 2.80654, 3.05728, -0.735004),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_g1mp2"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.85049, 1.7705, 0, 0, 0, 0, 0, 0, 0, 2.85049, 1.99171, 0, 0, 0, 0, 0, 0, 0, 2.85049, 2.21292, 0, 0, 0, 0, 0, 0, 0, 2.85049, 2.43412, 0, 0, 0, 0, 0, 0, 0, 2.85049, 2.65533, 0, 0, 0, 0, 0, 0, 0, 2.85049, 2.87653, 0, 0, 0, 0, 0, 0, 0, 2.85049, 3.09774, 0, 0, 0, 0, 0, 0, 0, 2.85049, 3.31894, 0, 0, 0, 0, 0, 0, 0, 2.85049, 3.54015, 0, 0, 0, 0, 0, 0, 0, 2.78342, 3.74063, -0.0651223, 0, 0, 0, 0, 0, 0, 2.71635, 3.94111, -0.130244),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 11
+
+[sub_resource type="Curve3D" id="Curve3D_br4wr"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71635, 3.94111, -0.130244, 0, 0, 0, 0, 0, 0, 2.71635, 4.16232, -0.130244, 0, 0, 0, 0, 0, 0, 2.71635, 4.38352, -0.130244),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_u7bfe"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71635, 4.38352, -0.130244, 0, 0, 0, 0, 0, 0, 2.6704, 4.584, -0.211661, 0, 0, 0, 0, 0, 0, 2.62446, 4.78448, -0.293078),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_h1aru"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.62446, 4.78448, -0.293078, 0, 0, 0, 0, 0, 0, 2.62446, 5.00569, -0.293078),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_gn6wg"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71635, 4.38352, -0.130244, 0, 0, 0, 0, 0, 0, 2.62333, 4.584, -0.120888),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_3irxd"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71635, 3.94111, -0.130244, 0, 0, 0, 0, 0, 0, 2.79188, 4.14159, -0.185326, 0, 0, 0, 0, 0, 0, 2.86742, 4.34207, -0.240408, 0, 0, 0, 0, 0, 0, 2.94295, 4.54255, -0.29549, 0, 0, 0, 0, 0, 0, 3.01849, 4.74303, -0.350572),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_eyeym"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.01849, 4.74303, -0.350572, 0, 0, 0, 0, 0, 0, 2.86549, 4.88522, -0.277738),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_ve85d"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.71635, 3.94111, -0.130244, 0, 0, 0, 0, 0, 0, 2.71635, 4.16232, -0.130244),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_npbjc"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.85049, 1.7705, 0, 0, 0, 0, 0, 0, 0, 2.68678, 1.91269, -0.043751, 0, 0, 0, 0, 0, 0, 2.52308, 2.05488, -0.087502),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_mjxua"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.52308, 2.05488, -0.087502, 0, 0, 0, 0, 0, 0, 2.32889, 2.11213, -0.176638, 0, 0, 0, 0, 0, 0, 2.1347, 2.16939, -0.265775),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_3dg66"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.1347, 2.16939, -0.265775, 0, 0, 0, 0, 0, 0, 2.2806, 2.31157, -0.179589),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_o08rp"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.52308, 2.05488, -0.087502, 0, 0, 0, 0, 0, 0, 2.59591, 2.25536, -0.14611),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_ncngg"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.85049, 1.7705, 0, 0, 0, 0, 0, 0, 0, 2.77763, 1.97098, 0.058572, 0, 0, 0, 0, 0, 0, 2.70477, 2.17146, 0.117144, 0, 0, 0, 0, 0, 0, 2.6319, 2.37195, 0.175716, 0, 0, 0, 0, 0, 0, 2.55904, 2.57243, 0.234288),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_vbo6v"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.55904, 2.57243, 0.234288, 0, 0, 0, 0, 0, 0, 2.55904, 2.79363, 0.234288),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_m0y61"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.85049, 1.7705, 0, 0, 0, 0, 0, 0, 0, 2.99187, 1.91269, 0.0934165),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[node name="LSystemPaths3D" type="Node3D"]
+
+[node name="Branch_0" type="Path3D" parent="."]
+curve = SubResource("Curve3D_f8dhh")
+
+[node name="Branch_1" type="Path3D" parent="Branch_0"]
+curve = SubResource("Curve3D_s6koy")
+
+[node name="Branch_2" type="Path3D" parent="Branch_0/Branch_1"]
+curve = SubResource("Curve3D_oc1qh")
+
+[node name="Branch_3" type="Path3D" parent="Branch_0/Branch_1/Branch_2"]
+curve = SubResource("Curve3D_xlhcj")
+
+[node name="Branch_4" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3"]
+curve = SubResource("Curve3D_vglim")
+
+[node name="Branch_5" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3/Branch_4"]
+curve = SubResource("Curve3D_2dscc")
+
+[node name="Branch_6" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3/Branch_4/Branch_5"]
+curve = SubResource("Curve3D_81u80")
+
+[node name="Branch_9" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3/Branch_4/Branch_5/Branch_6"]
+curve = SubResource("Curve3D_qi2hl")
+
+[node name="Branch_12" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3/Branch_4/Branch_5"]
+curve = SubResource("Curve3D_jhlre")
+
+[node name="Branch_13" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3/Branch_4"]
+curve = SubResource("Curve3D_04phx")
+
+[node name="Branch_16" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3/Branch_4/Branch_13"]
+curve = SubResource("Curve3D_fi1o1")
+
+[node name="Branch_19" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3/Branch_4"]
+curve = SubResource("Curve3D_5x5ew")
+
+[node name="Branch_20" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3"]
+curve = SubResource("Curve3D_lwmy8")
+
+[node name="Branch_21" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3/Branch_20"]
+curve = SubResource("Curve3D_byu0v")
+
+[node name="Branch_24" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3/Branch_20/Branch_21"]
+curve = SubResource("Curve3D_nrwhg")
+
+[node name="Branch_27" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3/Branch_20"]
+curve = SubResource("Curve3D_fqsvb")
+
+[node name="Branch_28" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3"]
+curve = SubResource("Curve3D_ymb3b")
+
+[node name="Branch_31" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3/Branch_28"]
+curve = SubResource("Curve3D_phk1u")
+
+[node name="Branch_34" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_3"]
+curve = SubResource("Curve3D_eff7g")
+
+[node name="Branch_35" type="Path3D" parent="Branch_0/Branch_1/Branch_2"]
+curve = SubResource("Curve3D_rx81r")
+
+[node name="Branch_36" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_35"]
+curve = SubResource("Curve3D_kkpll")
+
+[node name="Branch_37" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_35/Branch_36"]
+curve = SubResource("Curve3D_ddkda")
+
+[node name="Branch_40" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_35/Branch_36/Branch_37"]
+curve = SubResource("Curve3D_boomf")
+
+[node name="Branch_43" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_35/Branch_36"]
+curve = SubResource("Curve3D_1buf1")
+
+[node name="Branch_44" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_35"]
+curve = SubResource("Curve3D_yqhe3")
+
+[node name="Branch_47" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_35/Branch_44"]
+curve = SubResource("Curve3D_dx054")
+
+[node name="Branch_50" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_35"]
+curve = SubResource("Curve3D_dwcr6")
+
+[node name="Branch_51" type="Path3D" parent="Branch_0/Branch_1/Branch_2"]
+curve = SubResource("Curve3D_2tfdi")
+
+[node name="Branch_52" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_51"]
+curve = SubResource("Curve3D_f85wv")
+
+[node name="Branch_55" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_51/Branch_52"]
+curve = SubResource("Curve3D_05nui")
+
+[node name="Branch_58" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_51"]
+curve = SubResource("Curve3D_trmcq")
+
+[node name="Branch_59" type="Path3D" parent="Branch_0/Branch_1/Branch_2"]
+curve = SubResource("Curve3D_e6tbk")
+
+[node name="Branch_62" type="Path3D" parent="Branch_0/Branch_1/Branch_2/Branch_59"]
+curve = SubResource("Curve3D_4rssh")
+
+[node name="Branch_65" type="Path3D" parent="Branch_0/Branch_1/Branch_2"]
+curve = SubResource("Curve3D_vo6gr")
+
+[node name="Branch_66" type="Path3D" parent="Branch_0/Branch_1"]
+curve = SubResource("Curve3D_q0uu6")
+
+[node name="Branch_67" type="Path3D" parent="Branch_0/Branch_1/Branch_66"]
+curve = SubResource("Curve3D_rsbk0")
+
+[node name="Branch_68" type="Path3D" parent="Branch_0/Branch_1/Branch_66/Branch_67"]
+curve = SubResource("Curve3D_xah1h")
+
+[node name="Branch_69" type="Path3D" parent="Branch_0/Branch_1/Branch_66/Branch_67/Branch_68"]
+curve = SubResource("Curve3D_kdhu4")
+
+[node name="Branch_72" type="Path3D" parent="Branch_0/Branch_1/Branch_66/Branch_67/Branch_68/Branch_69"]
+curve = SubResource("Curve3D_vjpt8")
+
+[node name="Branch_75" type="Path3D" parent="Branch_0/Branch_1/Branch_66/Branch_67/Branch_68"]
+curve = SubResource("Curve3D_k6vbt")
+
+[node name="Branch_76" type="Path3D" parent="Branch_0/Branch_1/Branch_66/Branch_67"]
+curve = SubResource("Curve3D_tv6yx")
+
+[node name="Branch_79" type="Path3D" parent="Branch_0/Branch_1/Branch_66/Branch_67/Branch_76"]
+curve = SubResource("Curve3D_uqkyb")
+
+[node name="Branch_82" type="Path3D" parent="Branch_0/Branch_1/Branch_66/Branch_67"]
+curve = SubResource("Curve3D_awens")
+
+[node name="Branch_83" type="Path3D" parent="Branch_0/Branch_1/Branch_66"]
+curve = SubResource("Curve3D_37f3r")
+
+[node name="Branch_84" type="Path3D" parent="Branch_0/Branch_1/Branch_66/Branch_83"]
+curve = SubResource("Curve3D_fdbrq")
+
+[node name="Branch_87" type="Path3D" parent="Branch_0/Branch_1/Branch_66/Branch_83/Branch_84"]
+curve = SubResource("Curve3D_43ys8")
+
+[node name="Branch_90" type="Path3D" parent="Branch_0/Branch_1/Branch_66/Branch_83"]
+curve = SubResource("Curve3D_casbx")
+
+[node name="Branch_91" type="Path3D" parent="Branch_0/Branch_1/Branch_66"]
+curve = SubResource("Curve3D_1qom5")
+
+[node name="Branch_94" type="Path3D" parent="Branch_0/Branch_1/Branch_66/Branch_91"]
+curve = SubResource("Curve3D_qkvtq")
+
+[node name="Branch_97" type="Path3D" parent="Branch_0/Branch_1/Branch_66"]
+curve = SubResource("Curve3D_7t3ti")
+
+[node name="Branch_98" type="Path3D" parent="Branch_0/Branch_1"]
+curve = SubResource("Curve3D_ma3lu")
+
+[node name="Branch_99" type="Path3D" parent="Branch_0/Branch_1/Branch_98"]
+curve = SubResource("Curve3D_7r3ep")
+
+[node name="Branch_100" type="Path3D" parent="Branch_0/Branch_1/Branch_98/Branch_99"]
+curve = SubResource("Curve3D_i042j")
+
+[node name="Branch_103" type="Path3D" parent="Branch_0/Branch_1/Branch_98/Branch_99/Branch_100"]
+curve = SubResource("Curve3D_1ii4p")
+
+[node name="Branch_106" type="Path3D" parent="Branch_0/Branch_1/Branch_98/Branch_99"]
+curve = SubResource("Curve3D_nsqd8")
+
+[node name="Branch_107" type="Path3D" parent="Branch_0/Branch_1/Branch_98"]
+curve = SubResource("Curve3D_68uy7")
+
+[node name="Branch_110" type="Path3D" parent="Branch_0/Branch_1/Branch_98/Branch_107"]
+curve = SubResource("Curve3D_o6mov")
+
+[node name="Branch_113" type="Path3D" parent="Branch_0/Branch_1/Branch_98"]
+curve = SubResource("Curve3D_2khxh")
+
+[node name="Branch_114" type="Path3D" parent="Branch_0/Branch_1"]
+curve = SubResource("Curve3D_k7dqc")
+
+[node name="Branch_115" type="Path3D" parent="Branch_0/Branch_1/Branch_114"]
+curve = SubResource("Curve3D_r21br")
+
+[node name="Branch_118" type="Path3D" parent="Branch_0/Branch_1/Branch_114/Branch_115"]
+curve = SubResource("Curve3D_0qr0f")
+
+[node name="Branch_121" type="Path3D" parent="Branch_0/Branch_1/Branch_114"]
+curve = SubResource("Curve3D_ykdwh")
+
+[node name="Branch_122" type="Path3D" parent="Branch_0/Branch_1"]
+curve = SubResource("Curve3D_isloe")
+
+[node name="Branch_125" type="Path3D" parent="Branch_0/Branch_1/Branch_122"]
+curve = SubResource("Curve3D_0cpq7")
+
+[node name="Branch_128" type="Path3D" parent="Branch_0/Branch_1"]
+curve = SubResource("Curve3D_634sd")
+
+[node name="Branch_129" type="Path3D" parent="Branch_0"]
+curve = SubResource("Curve3D_xd2kf")
+
+[node name="Branch_130" type="Path3D" parent="Branch_0/Branch_129"]
+curve = SubResource("Curve3D_vv6ko")
+
+[node name="Branch_131" type="Path3D" parent="Branch_0/Branch_129/Branch_130"]
+curve = SubResource("Curve3D_spue7")
+
+[node name="Branch_132" type="Path3D" parent="Branch_0/Branch_129/Branch_130/Branch_131"]
+curve = SubResource("Curve3D_vqvq5")
+
+[node name="Branch_133" type="Path3D" parent="Branch_0/Branch_129/Branch_130/Branch_131/Branch_132"]
+curve = SubResource("Curve3D_hp8ab")
+
+[node name="Branch_136" type="Path3D" parent="Branch_0/Branch_129/Branch_130/Branch_131/Branch_132/Branch_133"]
+curve = SubResource("Curve3D_kcnsd")
+
+[node name="Branch_139" type="Path3D" parent="Branch_0/Branch_129/Branch_130/Branch_131/Branch_132"]
+curve = SubResource("Curve3D_qaabw")
+
+[node name="Branch_140" type="Path3D" parent="Branch_0/Branch_129/Branch_130/Branch_131"]
+curve = SubResource("Curve3D_4wm8m")
+
+[node name="Branch_143" type="Path3D" parent="Branch_0/Branch_129/Branch_130/Branch_131/Branch_140"]
+curve = SubResource("Curve3D_jlyoc")
+
+[node name="Branch_146" type="Path3D" parent="Branch_0/Branch_129/Branch_130/Branch_131"]
+curve = SubResource("Curve3D_yyegv")
+
+[node name="Branch_147" type="Path3D" parent="Branch_0/Branch_129/Branch_130"]
+curve = SubResource("Curve3D_upkx7")
+
+[node name="Branch_148" type="Path3D" parent="Branch_0/Branch_129/Branch_130/Branch_147"]
+curve = SubResource("Curve3D_piwnh")
+
+[node name="Branch_151" type="Path3D" parent="Branch_0/Branch_129/Branch_130/Branch_147/Branch_148"]
+curve = SubResource("Curve3D_3br6l")
+
+[node name="Branch_154" type="Path3D" parent="Branch_0/Branch_129/Branch_130/Branch_147"]
+curve = SubResource("Curve3D_01nh5")
+
+[node name="Branch_155" type="Path3D" parent="Branch_0/Branch_129/Branch_130"]
+curve = SubResource("Curve3D_udsqx")
+
+[node name="Branch_158" type="Path3D" parent="Branch_0/Branch_129/Branch_130/Branch_155"]
+curve = SubResource("Curve3D_a5j1w")
+
+[node name="Branch_161" type="Path3D" parent="Branch_0/Branch_129/Branch_130"]
+curve = SubResource("Curve3D_0lncb")
+
+[node name="Branch_162" type="Path3D" parent="Branch_0/Branch_129"]
+curve = SubResource("Curve3D_a4sr0")
+
+[node name="Branch_163" type="Path3D" parent="Branch_0/Branch_129/Branch_162"]
+curve = SubResource("Curve3D_auto0")
+
+[node name="Branch_164" type="Path3D" parent="Branch_0/Branch_129/Branch_162/Branch_163"]
+curve = SubResource("Curve3D_yfahd")
+
+[node name="Branch_167" type="Path3D" parent="Branch_0/Branch_129/Branch_162/Branch_163/Branch_164"]
+curve = SubResource("Curve3D_ng8e0")
+
+[node name="Branch_170" type="Path3D" parent="Branch_0/Branch_129/Branch_162/Branch_163"]
+curve = SubResource("Curve3D_bx6vj")
+
+[node name="Branch_171" type="Path3D" parent="Branch_0/Branch_129/Branch_162"]
+curve = SubResource("Curve3D_my2yp")
+
+[node name="Branch_174" type="Path3D" parent="Branch_0/Branch_129/Branch_162/Branch_171"]
+curve = SubResource("Curve3D_m1k7v")
+
+[node name="Branch_177" type="Path3D" parent="Branch_0/Branch_129/Branch_162"]
+curve = SubResource("Curve3D_2wv4x")
+
+[node name="Branch_178" type="Path3D" parent="Branch_0/Branch_129"]
+curve = SubResource("Curve3D_5cqf1")
+
+[node name="Branch_179" type="Path3D" parent="Branch_0/Branch_129/Branch_178"]
+curve = SubResource("Curve3D_7toyx")
+
+[node name="Branch_182" type="Path3D" parent="Branch_0/Branch_129/Branch_178/Branch_179"]
+curve = SubResource("Curve3D_h8jtw")
+
+[node name="Branch_185" type="Path3D" parent="Branch_0/Branch_129/Branch_178"]
+curve = SubResource("Curve3D_8wkng")
+
+[node name="Branch_186" type="Path3D" parent="Branch_0/Branch_129"]
+curve = SubResource("Curve3D_8op8s")
+
+[node name="Branch_189" type="Path3D" parent="Branch_0/Branch_129/Branch_186"]
+curve = SubResource("Curve3D_xqp1h")
+
+[node name="Branch_192" type="Path3D" parent="Branch_0/Branch_129"]
+curve = SubResource("Curve3D_k8ync")
+
+[node name="Branch_193" type="Path3D" parent="Branch_0"]
+curve = SubResource("Curve3D_oyrxv")
+
+[node name="Branch_194" type="Path3D" parent="Branch_0/Branch_193"]
+curve = SubResource("Curve3D_sjwus")
+
+[node name="Branch_195" type="Path3D" parent="Branch_0/Branch_193/Branch_194"]
+curve = SubResource("Curve3D_341pp")
+
+[node name="Branch_196" type="Path3D" parent="Branch_0/Branch_193/Branch_194/Branch_195"]
+curve = SubResource("Curve3D_friaa")
+
+[node name="Branch_199" type="Path3D" parent="Branch_0/Branch_193/Branch_194/Branch_195/Branch_196"]
+curve = SubResource("Curve3D_641s5")
+
+[node name="Branch_202" type="Path3D" parent="Branch_0/Branch_193/Branch_194/Branch_195"]
+curve = SubResource("Curve3D_1yl8q")
+
+[node name="Branch_203" type="Path3D" parent="Branch_0/Branch_193/Branch_194"]
+curve = SubResource("Curve3D_b6j8e")
+
+[node name="Branch_206" type="Path3D" parent="Branch_0/Branch_193/Branch_194/Branch_203"]
+curve = SubResource("Curve3D_d0lyi")
+
+[node name="Branch_209" type="Path3D" parent="Branch_0/Branch_193/Branch_194"]
+curve = SubResource("Curve3D_5h4ko")
+
+[node name="Branch_210" type="Path3D" parent="Branch_0/Branch_193"]
+curve = SubResource("Curve3D_egadl")
+
+[node name="Branch_211" type="Path3D" parent="Branch_0/Branch_193/Branch_210"]
+curve = SubResource("Curve3D_53q61")
+
+[node name="Branch_214" type="Path3D" parent="Branch_0/Branch_193/Branch_210/Branch_211"]
+curve = SubResource("Curve3D_f782j")
+
+[node name="Branch_217" type="Path3D" parent="Branch_0/Branch_193/Branch_210"]
+curve = SubResource("Curve3D_42t7g")
+
+[node name="Branch_218" type="Path3D" parent="Branch_0/Branch_193"]
+curve = SubResource("Curve3D_lpcpq")
+
+[node name="Branch_221" type="Path3D" parent="Branch_0/Branch_193/Branch_218"]
+curve = SubResource("Curve3D_rm50p")
+
+[node name="Branch_224" type="Path3D" parent="Branch_0/Branch_193"]
+curve = SubResource("Curve3D_phviy")
+
+[node name="Branch_225" type="Path3D" parent="Branch_0"]
+curve = SubResource("Curve3D_g1mp2")
+
+[node name="Branch_226" type="Path3D" parent="Branch_0/Branch_225"]
+curve = SubResource("Curve3D_br4wr")
+
+[node name="Branch_227" type="Path3D" parent="Branch_0/Branch_225/Branch_226"]
+curve = SubResource("Curve3D_u7bfe")
+
+[node name="Branch_230" type="Path3D" parent="Branch_0/Branch_225/Branch_226/Branch_227"]
+curve = SubResource("Curve3D_h1aru")
+
+[node name="Branch_233" type="Path3D" parent="Branch_0/Branch_225/Branch_226"]
+curve = SubResource("Curve3D_gn6wg")
+
+[node name="Branch_234" type="Path3D" parent="Branch_0/Branch_225"]
+curve = SubResource("Curve3D_3irxd")
+
+[node name="Branch_237" type="Path3D" parent="Branch_0/Branch_225/Branch_234"]
+curve = SubResource("Curve3D_eyeym")
+
+[node name="Branch_240" type="Path3D" parent="Branch_0/Branch_225"]
+curve = SubResource("Curve3D_ve85d")
+
+[node name="Branch_241" type="Path3D" parent="Branch_0"]
+curve = SubResource("Curve3D_npbjc")
+
+[node name="Branch_242" type="Path3D" parent="Branch_0/Branch_241"]
+curve = SubResource("Curve3D_mjxua")
+
+[node name="Branch_245" type="Path3D" parent="Branch_0/Branch_241/Branch_242"]
+curve = SubResource("Curve3D_3dg66")
+
+[node name="Branch_248" type="Path3D" parent="Branch_0/Branch_241"]
+curve = SubResource("Curve3D_o08rp")
+
+[node name="Branch_249" type="Path3D" parent="Branch_0"]
+curve = SubResource("Curve3D_ncngg")
+
+[node name="Branch_252" type="Path3D" parent="Branch_0/Branch_249"]
+curve = SubResource("Curve3D_vbo6v")
+
+[node name="Branch_255" type="Path3D" parent="Branch_0"]
+curve = SubResource("Curve3D_m0y61")
