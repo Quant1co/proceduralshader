@@ -250,6 +250,11 @@ layout_mode = 2
 layout_mode = 2
 text = "Прозрачный фон PNG"
 
+[node name="ParticleGlowCheck" type="CheckBox" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Свечение для частиц"
+tooltip_text = "Добавляет мягкое свечение вокруг линий — улучшает видимость в системах частиц"
+
 [node name="StraightenTrunkCheck" type="CheckBox" parent="ScrollContainer/VBox"]
 layout_mode = 2
 text = "Выпрямлять ствол в Path3D"

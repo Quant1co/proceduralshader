@@ -142,6 +142,7 @@ var iter_tip_width: float = 1.0
 @onready var generate_btn:             Button               = $ScrollContainer/VBox/GenerateButton
 @onready var export_format_selector:   OptionButton         = $ScrollContainer/VBox/ExportFormatSelector
 @onready var transparent_bg_check:     CheckBox             = $ScrollContainer/VBox/TransparentBgCheck
+@onready var particle_glow_check:      CheckBox             = $ScrollContainer/VBox/ParticleGlowCheck
 @onready var straighten_trunk_check:   CheckBox             = $ScrollContainer/VBox/StraightenTrunkCheck
 @onready var export_button:            Button               = $ScrollContainer/VBox/ExportButton
 @onready var export_path_button:       Button               = $ScrollContainer/VBox/ExportPathButton
@@ -290,6 +291,7 @@ func _input(event: InputEvent) -> void:
 # ===========================================================================
 func _on_export_format_changed(index: int) -> void:
 	transparent_bg_check.visible = (index == 0)
+	particle_glow_check.visible = (index == 0)
 	straighten_trunk_check.visible = (index == 2)
 
 func _on_export_pressed_unified() -> void:
@@ -1156,6 +1158,15 @@ func _on_export_pressed() -> void:
 		if color_mode == ColorMode.BY_ITERATION:
 			width = _get_width_for_category(seg.get("category", CAT_TRUNK))
 		_draw_thick_line_on_image(image, seg["from"], seg["to"], color, int(max(width, 1.0)))
+
+	# --- Свечение для частиц ---
+	if particle_glow_check.button_pressed:
+		_set_status("Применяю свечение...")
+		_apply_particle_glow(image, 8, 0.85)
+
+	# --- Мипмапы ---
+	image.generate_mipmaps()
+
 	var timestamp: String = Time.get_datetime_string_from_system().replace(":", "-").replace("T", "_")
 	var file_name: String = "lsystem_" + timestamp
 	if image.save_png(abs_export_dir + file_name + ".png") != OK:
@@ -1224,6 +1235,102 @@ func _draw_thick_line_on_image(image: Image, from: Vector2, to: Vector2, color: 
 		for offset_y in range(-half, half + 1):
 			if offset_x * offset_x + offset_y * offset_y <= half * half:
 				_draw_line_on_image(image, from + Vector2(offset_x, offset_y), to + Vector2(offset_x, offset_y), color)
+
+# ===========================================================================
+#  Постобработка: свечение для текстур частиц
+# ===========================================================================
+func _apply_particle_glow(image: Image, radius: int = 6, intensity: float = 0.8) -> void:
+	var w: int = image.get_width()
+	var h: int = image.get_height()
+
+	# 1. Утолщаем линии перед размытием (дилатация)
+	var dilated: Image = Image.create(w, h, false, Image.FORMAT_RGBA8)
+	dilated.fill(Color(0, 0, 0, 0))
+	var dilate_r: int = 2
+	for y in range(h):
+		for x in range(w):
+			var src: Color = image.get_pixel(x, y)
+			if src.a < 0.1:
+				continue
+			for dy in range(-dilate_r, dilate_r + 1):
+				for dx in range(-dilate_r, dilate_r + 1):
+					var nx: int = x + dx
+					var ny: int = y + dy
+					if nx < 0 or nx >= w or ny < 0 or ny >= h:
+						continue
+					if dx * dx + dy * dy > dilate_r * dilate_r:
+						continue
+					var existing: Color = dilated.get_pixel(nx, ny)
+					if src.a > existing.a:
+						dilated.set_pixel(nx, ny, src)
+
+	# 2. Горизонтальное гауссово размытие
+	var h_blur: Image = Image.create(w, h, false, Image.FORMAT_RGBA8)
+	h_blur.fill(Color(0, 0, 0, 0))
+	for y in range(h):
+		for x in range(w):
+			var r_sum: float = 0.0
+			var g_sum: float = 0.0
+			var b_sum: float = 0.0
+			var a_sum: float = 0.0
+			var weight_sum: float = 0.0
+			for dx in range(-radius, radius + 1):
+				var nx: int = clampi(x + dx, 0, w - 1)
+				var px: Color = dilated.get_pixel(nx, y)
+				var weight: float = exp(-float(dx * dx) / (2.0 * float(radius * radius) / 4.0))
+				r_sum += px.r * px.a * weight
+				g_sum += px.g * px.a * weight
+				b_sum += px.b * px.a * weight
+				a_sum += px.a * weight
+				weight_sum += weight
+			if weight_sum > 0.0 and a_sum > 0.01:
+				h_blur.set_pixel(x, y, Color(
+					r_sum / maxf(a_sum, 0.01),
+					g_sum / maxf(a_sum, 0.01),
+					b_sum / maxf(a_sum, 0.01),
+					a_sum / weight_sum * intensity
+				))
+
+	# 3. Вертикальное гауссово размытие
+	var glow: Image = Image.create(w, h, false, Image.FORMAT_RGBA8)
+	glow.fill(Color(0, 0, 0, 0))
+	for y in range(h):
+		for x in range(w):
+			var r_sum: float = 0.0
+			var g_sum: float = 0.0
+			var b_sum: float = 0.0
+			var a_sum: float = 0.0
+			var weight_sum: float = 0.0
+			for dy in range(-radius, radius + 1):
+				var ny: int = clampi(y + dy, 0, h - 1)
+				var px: Color = h_blur.get_pixel(x, ny)
+				var weight: float = exp(-float(dy * dy) / (2.0 * float(radius * radius) / 4.0))
+				r_sum += px.r * px.a * weight
+				g_sum += px.g * px.a * weight
+				b_sum += px.b * px.a * weight
+				a_sum += px.a * weight
+				weight_sum += weight
+			if weight_sum > 0.0 and a_sum > 0.01:
+				glow.set_pixel(x, y, Color(
+					r_sum / maxf(a_sum, 0.01),
+					g_sum / maxf(a_sum, 0.01),
+					b_sum / maxf(a_sum, 0.01),
+					minf(a_sum / weight_sum * intensity, 1.0)
+				))
+
+	# 4. Комбинируем: свечение + оригинал поверх
+	for y in range(h):
+		for x in range(w):
+			var glow_px: Color = glow.get_pixel(x, y)
+			var orig: Color = image.get_pixel(x, y)
+			# Свечение как подложка
+			var base_a: float = glow_px.a * (1.0 - orig.a) + orig.a
+			if base_a < 0.001:
+				continue
+			var final_r: float = (glow_px.r * glow_px.a * (1.0 - orig.a) + orig.r * orig.a) / base_a
+			var final_g: float = (glow_px.g * glow_px.a * (1.0 - orig.a) + orig.g * orig.a) / base_a
+			var final_b: float = (glow_px.b * glow_px.a * (1.0 - orig.a) + orig.b * orig.a) / base_a
+			image.set_pixel(x, y, Color(final_r, final_g, final_b, minf(base_a, 1.0)))
 
 # ===========================================================================
 #  Метаданные

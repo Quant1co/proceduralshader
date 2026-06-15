@@ -49,6 +49,10 @@ text = "Создать эффект"
 layout_mode = 2
 text = "Очистить всё"
 
+[node name="BgToggleButton" type="Button" parent="UI/VBox"]
+layout_mode = 2
+text = "Фон: тёмный"
+
 [node name="HSep2" type="HSeparator" parent="UI/VBox"]
 layout_mode = 2
 

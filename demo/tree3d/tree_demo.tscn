@@ -22,8 +22,7 @@ light_energy = 0.4
 
 [node name="TreeGenerator" type="Node3D" parent="."]
 script = ExtResource("1")
-path3d_scene_path = "res://export/lsystem/lsystem_path3d_2026-05-27_04-16-14.tscn"
-leaf_enabled = false
+path3d_scene_path = "res://export/lsystem/lsystem_path3d_2026-06-15_06-12-05.tscn"
 
 [node name="Ground" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)

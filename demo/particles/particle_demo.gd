@@ -10,21 +10,16 @@ extends Node2D
 @onready var effect_selector: OptionButton = $UI/VBox/EffectSelector
 @onready var spawn_button: Button          = $UI/VBox/SpawnButton
 @onready var clear_button: Button          = $UI/VBox/ClearButton
+@onready var bg_toggle_button: Button      = $UI/VBox/BgToggleButton
 @onready var info_label: Label             = $UI/VBox/InfoLabel
 @onready var hint_label: Label             = $UI/VBox/HintLabel
 @onready var effects_root: Node2D         = $EffectsRoot
+@onready var background: ColorRect         = $Background
 
 # --- Настройки текстур ---
-## Путь к текстуре снежинки (экспортировано из L-System Editor, пресет ❄ Snowflake)
 @export_file("*.png") var snowflake_texture_path: String = "res://demo/particles/textures/snowflake.png"
-
-## Путь к текстуре магической руны (экспортировано из L-System Editor, пресет ✦ Magic Rune)
 @export_file("*.png") var magic_rune_texture_path: String = "res://demo/particles/textures/magic_rune.png"
-
-## Путь к текстуре арканной звезды (экспортировано из L-System Editor, пресет ✦ Arcane Star)
 @export_file("*.png") var arcane_star_texture_path: String = "res://demo/particles/textures/arcane_star.png"
-
-## Путь к текстуре мистической спирали (экспортировано из L-System Editor, пресет ✦ Mystic Spiral)
 @export_file("*.png") var mystic_spiral_texture_path: String = "res://demo/particles/textures/mystic_spiral.png"
 
 # --- Загруженные текстуры ---
@@ -35,6 +30,9 @@ var _is_panning: bool = false
 var _pan_start: Vector2 = Vector2.ZERO
 var _camera_start: Vector2 = Vector2.ZERO
 @onready var camera: Camera2D = $Camera2D
+
+# --- Фон ---
+var _dark_bg: bool = true
 
 # =======================================================================
 #  Определения эффектов
@@ -67,20 +65,19 @@ const EFFECT_DESCRIPTIONS: Array[String] = [
 #  _ready
 # =======================================================================
 func _ready() -> void:
-	# Загружаем текстуры
 	_load_textures()
 
-	# Заполняем селектор
 	for effect_name in EFFECT_NAMES:
 		effect_selector.add_item(effect_name)
 	effect_selector.selected = 0
 	effect_selector.item_selected.connect(_on_effect_selected)
 
-	# Кнопки
 	spawn_button.pressed.connect(_on_spawn_pressed)
 	clear_button.pressed.connect(_on_clear_pressed)
+	bg_toggle_button.pressed.connect(_on_bg_toggle)
 
 	_on_effect_selected(0)
+	_update_bg_button_text()
 
 func _load_textures() -> void:
 	_textures["snowflake"] = _try_load_texture(snowflake_texture_path, "snowflake")
@@ -92,16 +89,26 @@ func _try_load_texture(path: String, name: String) -> Texture2D:
 	if path.is_empty():
 		push_warning("[ParticleDemo] Путь к текстуре '%s' не задан" % name)
 		return _create_fallback_texture()
-	var tex = load(path)
-	if tex is Texture2D:
-		return tex
-	push_warning("[ParticleDemo] Не удалось загрузить '%s', используется заглушка" % path)
-	return _create_fallback_texture()
+
+	# Загружаем изображение вручную для контроля фильтрации
+	var img: Image = Image.load_from_file(ProjectSettings.globalize_path(path))
+	if img == null:
+		# Пробуем через стандартный load
+		var tex = load(path)
+		if tex is Texture2D:
+			return tex
+		push_warning("[ParticleDemo] Не удалось загрузить '%s', используется заглушка" % path)
+		return _create_fallback_texture()
+
+	# Генерируем мипмапы для корректного отображения при уменьшении
+	img.generate_mipmaps()
+
+	var tex := ImageTexture.create_from_image(img)
+	return tex
 
 func _create_fallback_texture() -> ImageTexture:
 	var img := Image.create(64, 64, false, Image.FORMAT_RGBA8)
 	img.fill(Color(1, 1, 1, 0))
-	# Рисуем простой крестик как заглушку
 	for i in range(64):
 		img.set_pixel(32, i, Color.WHITE)
 		img.set_pixel(i, 32, Color.WHITE)
@@ -136,6 +143,23 @@ func _on_clear_pressed() -> void:
 	hint_label.text = ""
 
 # =======================================================================
+#  Переключение фона
+# =======================================================================
+func _on_bg_toggle() -> void:
+	_dark_bg = not _dark_bg
+	if _dark_bg:
+		background.color = Color(0.05, 0.05, 0.1, 1.0)
+	else:
+		background.color = Color(0.85, 0.85, 0.9, 1.0)
+	_update_bg_button_text()
+
+func _update_bg_button_text() -> void:
+	if _dark_bg:
+		bg_toggle_button.text = "Фон: тёмный"
+	else:
+		bg_toggle_button.text = "Фон: светлый"
+
+# =======================================================================
 #  Камера
 # =======================================================================
 func _input(event: InputEvent) -> void:
@@ -157,7 +181,6 @@ func _input(event: InputEvent) -> void:
 			var delta: Vector2 = event.global_position - _pan_start
 			camera.position = _camera_start - delta / camera.zoom
 
-		# Руновый след за курсором
 		_update_rune_trails(event.global_position)
 
 # =======================================================================
@@ -173,28 +196,22 @@ func _spawn_snowfall(center: Vector2, viewport_size: Vector2) -> void:
 
 	var mat := ParticleProcessMaterial.new()
 
-	# Область спавна — широкая горизонтальная полоса
 	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
 	mat.emission_box_extents = Vector3(viewport_size.x * 0.6, 10.0, 0.0)
 
-	# Падение вниз
 	mat.direction = Vector3(0.0, 1.0, 0.0)
 	mat.spread = 15.0
 	mat.initial_velocity_min = 30.0
 	mat.initial_velocity_max = 60.0
 
-	# Гравитация (лёгкая)
 	mat.gravity = Vector3(0.0, 15.0, 0.0)
 
-	# Вращение (снежинки крутятся)
 	mat.angular_velocity_min = -45.0
 	mat.angular_velocity_max = 45.0
 
-	# Масштаб — снежинки разного размера
 	mat.scale_min = 0.03
 	mat.scale_max = 0.08
 
-	# Цвет — белый полупрозрачный
 	var color_curve := CurveTexture.new()
 	var alpha_curve := Curve.new()
 	alpha_curve.add_point(Vector2(0.0, 0.0))
@@ -223,11 +240,9 @@ func _spawn_magic_aura(center: Vector2) -> void:
 
 	var mat := ParticleProcessMaterial.new()
 
-	# Область спавна — кольцо
 	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
 	mat.emission_sphere_radius = 80.0
 
-	# Движение наружу от центра
 	mat.direction = Vector3(0.0, -1.0, 0.0)
 	mat.spread = 180.0
 	mat.initial_velocity_min = 10.0
@@ -235,11 +250,9 @@ func _spawn_magic_aura(center: Vector2) -> void:
 
 	mat.gravity = Vector3.ZERO
 
-	# Вращение
 	mat.angular_velocity_min = -90.0
 	mat.angular_velocity_max = 90.0
 
-	# Масштаб — пульсация
 	mat.scale_min = 0.04
 	mat.scale_max = 0.1
 
@@ -252,7 +265,6 @@ func _spawn_magic_aura(center: Vector2) -> void:
 	scale_curve.curve = sc
 	mat.scale_curve = scale_curve
 
-	# Цвет — от голубого к фиолетовому
 	var grad := GradientTexture1D.new()
 	var g := Gradient.new()
 	g.set_color(0, Color(0.3, 0.6, 1.0, 0.0))
@@ -280,11 +292,9 @@ func _spawn_arcane_explosion(center: Vector2) -> void:
 
 	var mat := ParticleProcessMaterial.new()
 
-	# Точечный спавн
 	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
 	mat.emission_sphere_radius = 5.0
 
-	# Разлёт во все стороны
 	mat.direction = Vector3(0.0, 0.0, 0.0)
 	mat.spread = 180.0
 	mat.initial_velocity_min = 150.0
@@ -292,11 +302,9 @@ func _spawn_arcane_explosion(center: Vector2) -> void:
 
 	mat.gravity = Vector3(0.0, 100.0, 0.0)
 
-	# Вращение
 	mat.angular_velocity_min = -180.0
 	mat.angular_velocity_max = 180.0
 
-	# Масштаб — быстро уменьшаются
 	mat.scale_min = 0.05
 	mat.scale_max = 0.15
 
@@ -308,7 +316,6 @@ func _spawn_arcane_explosion(center: Vector2) -> void:
 	scale_curve.curve = sc
 	mat.scale_curve = scale_curve
 
-	# Цвет — от яркого к тусклому
 	var grad := GradientTexture1D.new()
 	var g := Gradient.new()
 	g.set_color(0, Color(1.0, 0.9, 0.3, 1.0))
@@ -324,7 +331,6 @@ func _spawn_arcane_explosion(center: Vector2) -> void:
 	particles.process_material = mat
 	effects_root.add_child(particles)
 
-	# Автоудаление после завершения
 	var timer := Timer.new()
 	timer.wait_time = 3.0
 	timer.one_shot = true
@@ -345,14 +351,12 @@ func _spawn_mystic_vortex(center: Vector2) -> void:
 
 	var mat := ParticleProcessMaterial.new()
 
-	# Спавн в кольце
 	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_RING
 	mat.emission_ring_radius = 120.0
 	mat.emission_ring_inner_radius = 40.0
 	mat.emission_ring_height = 0.0
 	mat.emission_ring_axis = Vector3(0.0, 0.0, 1.0)
 
-	# Направление — к центру и вверх
 	mat.direction = Vector3(0.0, -1.0, 0.0)
 	mat.spread = 60.0
 	mat.initial_velocity_min = 20.0
@@ -360,15 +364,12 @@ func _spawn_mystic_vortex(center: Vector2) -> void:
 
 	mat.gravity = Vector3.ZERO
 
-	# Орбитальная скорость — вращение вокруг центра
 	mat.orbit_velocity_min = 0.3
 	mat.orbit_velocity_max = 0.6
 
-	# Вращение частиц
 	mat.angular_velocity_min = -120.0
 	mat.angular_velocity_max = 120.0
 
-	# Масштаб
 	mat.scale_min = 0.03
 	mat.scale_max = 0.09
 
@@ -380,7 +381,6 @@ func _spawn_mystic_vortex(center: Vector2) -> void:
 	scale_curve.curve = sc
 	mat.scale_curve = scale_curve
 
-	# Цвет — от зелёного к голубому
 	var grad := GradientTexture1D.new()
 	var g := Gradient.new()
 	g.set_color(0, Color(0.1, 1.0, 0.5, 0.0))
@@ -399,7 +399,6 @@ func _spawn_mystic_vortex(center: Vector2) -> void:
 var _rune_trail_particles: GPUParticles2D = null
 
 func _spawn_rune_trail(center: Vector2) -> void:
-	# Удаляем предыдущий, если был
 	if _rune_trail_particles and is_instance_valid(_rune_trail_particles):
 		_rune_trail_particles.queue_free()
 
@@ -448,6 +447,5 @@ func _spawn_rune_trail(center: Vector2) -> void:
 
 func _update_rune_trails(screen_pos: Vector2) -> void:
 	if _rune_trail_particles and is_instance_valid(_rune_trail_particles):
-		# Конвертируем экранную позицию в мировую
 		var world_pos: Vector2 = camera.position + (screen_pos - get_viewport_rect().size / 2.0) / camera.zoom
 		_rune_trail_particles.position = world_pos
