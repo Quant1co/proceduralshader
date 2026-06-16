@@ -11,3 +11,4 @@ res://scenes/LSystemScene.tscn
 res://demo/dungeon/dungeon_demo.tscn
 res://demo/tree3d/tree_demo.tscn
 res://demo/particles/particle_demo.tscn
+res://demo/bake_comparison/bake_comparison_demo.tscn
