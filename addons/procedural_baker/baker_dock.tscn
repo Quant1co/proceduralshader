@@ -96,7 +96,7 @@ layout_mode = 2
 
 [node name="BakeButton" type="Button" parent="ScrollContainer/MainVBox"]
 layout_mode = 2
-text = "Запечь текстуру"
+text = "Сохранить текстуру"
 
 [node name="ExportPathButton" type="Button" parent="ScrollContainer/MainVBox"]
 layout_mode = 2

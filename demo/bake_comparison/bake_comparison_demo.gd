@@ -229,16 +229,25 @@ func _apply_materials() -> void:
 	if _use_baked:
 		var marble_mat := StandardMaterial3D.new()
 		marble_mat.albedo_texture = _baked_marble_tex
-		if marble_mat.albedo_texture == null:
-			marble_mat.albedo_color = Color(0.9, 0.88, 0.82)
+		marble_mat.albedo_color = Color(1.05, 1.05, 1.05) # Компенсация гаммы мрамора
+		marble_mat.roughness = 0.4
 
 		var lava_mat := StandardMaterial3D.new()
 		lava_mat.albedo_texture = _baked_lava_tex
-		if lava_mat.albedo_texture == null:
-			lava_mat.albedo_color = Color(0.8, 0.2, 0.0)
+		lava_mat.roughness = 0.85
+		
+		# Включаем свечение
 		lava_mat.emission_enabled = true
-		lava_mat.emission = Color(1.0, 0.4, 0.0)
-		lava_mat.emission_energy_multiplier = 0.5
+		lava_mat.emission_texture = _baked_lava_tex
+		
+		# КЛЮЧЕВОЙ МОМЕНТ:
+		# Используем чисто оранжево-красный цвет (синий = 0.0).
+		# Тёмная корка при умножении на этот цвет останется тёмной.
+		# А жёлтые трещины вспыхнут ярким светом.
+		lava_mat.emission = Color(1.0, 0.25, 0.0) 
+		
+		# Уменьшили множитель, чтобы компенсировать яркость PNG-текстуры
+		lava_mat.emission_energy_multiplier = 0.3 
 
 		for mi in _marble_objects:
 			mi.material_override = marble_mat

@@ -7,6 +7,7 @@ uniform float gain : hint_range(0.0, 1.0) = 0.5;
 uniform int warp_iterations : hint_range(0, 8) = 5;
 uniform float warp_strength : hint_range(0.0, 5.0) = 2.0;
 uniform float turbulence : hint_range(0.0, 10.0) = 4.0;
+uniform float baked_emission_boost : hint_range(0.0, 1.5) = 1.0;
 uniform float glow_intensity : hint_range(0.0, 3.0) = 1.5;
 uniform float crack_detail : hint_range(1.0, 10.0) = 5.0;
 uniform int voronoi_search : hint_range(1, 3) = 2;
@@ -130,9 +131,16 @@ void fragment() {
 
     vec3 col = mix(lava_col, crust_col, crack_mask * 0.85);
 
-    // Дополнительное свечение в глубоких трещинах
     float deep_glow = (1.0 - smoothstep(0.0, 0.05, cracks));
     col += color_hot.rgb * deep_glow * glow_intensity * 0.5;
+
+    // Добавляем в цвет часть emissive-вклада,
+    // чтобы запечённая PNG была ближе к spatial-версии
+    vec3 baked_emission = lava_col * heat * glow_intensity * 0.3;
+    col += baked_emission * baked_emission_boost;
+
+    // Гамма-коррекция
+    col = pow(col, vec3(1.0 / 2.2));
 
     COLOR = vec4(clamp(col, 0.0, 1.0), 1.0);
 }

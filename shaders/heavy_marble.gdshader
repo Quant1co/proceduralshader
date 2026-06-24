@@ -115,5 +115,8 @@ void fragment() {
     col = mix(col, col * 0.6, (1.0 - cracks) * 0.4);
     col += (micro - 0.5) * 0.08;
 
+    // Гамма-коррекция для точного совпадения с 3D (Linear -> sRGB)
+    col = pow(col, vec3(1.0 / 2.2));
+    
     COLOR = vec4(clamp(col, 0.0, 1.0), 1.0);
 }

@@ -124,5 +124,10 @@ void fragment() {
     col += color_hot.rgb * deep_glow * glow_intensity * 0.5;
 
     ALBEDO = clamp(col, vec3(0.0), vec3(1.0));
-    EMISSION = lava_col * heat * glow_intensity * 0.3;
+    
+    // Применяем математически идентичное свечение,
+    // как в StandardMaterial3D для запечённой текстуры:
+    EMISSION = ALBEDO * vec3(1.0, 0.25, 0.0) * 1.5;
+    
+    ROUGHNESS = 0.85;
 }

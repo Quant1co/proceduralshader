@@ -104,4 +104,5 @@ void fragment() {
     col += (micro - 0.5) * 0.08;
 
     ALBEDO = clamp(col, vec3(0.0), vec3(1.0));
+    ROUGHNESS = 0.4; // Добавлено для синхронизации бликов с запечённой версией
 }

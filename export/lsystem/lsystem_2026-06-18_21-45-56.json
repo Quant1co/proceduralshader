@@ -1,0 +1,59 @@
+{
+	"colors": {
+		"mode": "gradient",
+		"points": [
+			{
+				"color": "#8c4512",
+				"offset": 0
+			},
+			{
+				"color": "#00644a",
+				"offset": 0.0232558138668537
+			},
+			{
+				"color": "#00753e",
+				"offset": 0.0676532760262489
+			},
+			{
+				"color": "#7a651e",
+				"offset": 0.120507396757603
+			},
+			{
+				"color": "#0f865a",
+				"offset": 0.1966173350811
+			},
+			{
+				"color": "#009f57",
+				"offset": 0.262156456708908
+			},
+			{
+				"color": "#33e64d",
+				"offset": 1
+			}
+		]
+	},
+	"exported_at": "2026-06-18T21:45:56",
+	"params": {
+		"angle": 25,
+		"axiom": "X",
+		"iterations": 5,
+		"rules": {
+			"F": [
+				{
+					"replacement": "FF",
+					"weight": 1
+				}
+			],
+			"X": [
+				{
+					"replacement": "F+[[X]-X]-F[-FX]+X",
+					"weight": 1
+				}
+			]
+		},
+		"step": 8
+	},
+	"seed": 143323003,
+	"type": "lsystem",
+	"version": "3.1"
+}
